@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import { IUser, Role } from "@interfaces/user.interface";
+import { IUser } from "@interfaces/user.interface";
 
 dotenv.config();
 // Read environment variables
