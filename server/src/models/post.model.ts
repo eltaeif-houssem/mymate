@@ -41,6 +41,6 @@ export const postSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// create profile model
+// create post model
 export const Post = mongoose.model("Post", postSchema);
 export default Post;
