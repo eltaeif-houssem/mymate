@@ -4,6 +4,7 @@ import { Server } from "socket.io";
 import cors from "cors";
 import connectDB from "@configs/db.config";
 import socketServer from "./socket";
+import errorHandler from "@handlers/errors.handler";
 
 // define vars
 const app = express();
@@ -20,6 +21,7 @@ app.use(
     credentials: true,
   })
 );
+app.use(errorHandler);
 
 // init socket io server
 io.on("connection", socketServer);
@@ -30,8 +32,6 @@ app.get("/api/v1/health-check", (req, res) => {
 });
 
 // handle database and server app running
-connectDB()
-  .then(() => {
-    server.listen(PORT);
-  })
-  .catch(() => {});
+connectDB().then(() => {
+  server.listen(PORT);
+});
