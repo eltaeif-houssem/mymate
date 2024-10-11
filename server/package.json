@@ -13,6 +13,7 @@
     "@types/express": "^5.0.0",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.7.5",
+    "@types/uuid": "^10.0.0",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
@@ -20,7 +21,8 @@
     "mongoose": "^8.7.1",
     "socket.io": "^4.8.0",
     "ts-node": "^10.9.2",
-    "tsconfig-paths": "^4.2.0"
+    "tsconfig-paths": "^4.2.0",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "typescript": "^5.6.3"
