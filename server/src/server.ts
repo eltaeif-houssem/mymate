@@ -5,6 +5,7 @@ import cors from "cors";
 import connectDB from "@configs/db.config";
 import socketServer from "./socket";
 import errorHandler from "@handlers/errors.handler";
+import appRoutes from "@routes/app.route";
 
 // define vars
 const app = express();
