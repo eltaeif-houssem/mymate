@@ -1,9 +1,5 @@
 import { Request } from "express";
-
-export interface IUser {
-  id: string;
-  email: string;
-}
+import { IUser } from "./user.interface";
 
 export interface IUserReq extends Request {
   user?: IUser;

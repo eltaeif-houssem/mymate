@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import { IUser } from "@interfaces/request.interface";
+import { IUser, Role } from "@interfaces/user.interface";
 
 dotenv.config();
 // Read environment variables
@@ -56,6 +56,7 @@ export const refreshAccessToken = (refreshToken: string): string | null => {
   const newAccessToken = generateToken({
     id: decoded.id,
     email: decoded.email,
+    role: decoded.role,
   });
 
   return newAccessToken;
