@@ -5,7 +5,7 @@ import { IUser } from "@interfaces/request.interface";
 dotenv.config();
 // Read environment variables
 const JWT_SECRET = process.env.JWT_SECRET as string;
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "1d"; // Default to 1 hour if not provided
+const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "1d"; // Default to 1 day if not provided
 const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET as string;
 const JWT_REFRESH_EXPIRES_IN = process.env.JWT_REFRESH_EXPIRES_IN || "7d"; // Default to 7 days if not provided
 
