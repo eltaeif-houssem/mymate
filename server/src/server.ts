@@ -3,6 +3,7 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import cors from "cors";
 import connectDB from "@configs/db.config";
+import socketServer from "./socket";
 
 // define vars
 const app = express();
@@ -19,6 +20,9 @@ app.use(
     credentials: true,
   })
 );
+
+// init socket io server
+io.on("connection", socketServer);
 
 // add health check for the api
 app.get("/api/v1/health-check", (req, res) => {
