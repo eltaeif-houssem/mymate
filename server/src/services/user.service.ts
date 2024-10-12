@@ -9,9 +9,8 @@ class UserService {
     if (userExist) throw new CustomError("User already exists", 400);
 
     const newUser = await User.create(payload);
-    const { password, ...data } = newUser.toObject();
 
-    return data;
+    return newUser.toObject();
   }
 
   // find user
@@ -20,9 +19,7 @@ class UserService {
 
     if (!userExist) throw new CustomError("User does not exist", 404);
 
-    const { password, ...data } = userExist.toObject();
-
-    return data;
+    return userExist.toObject();
   }
 
   // update user
@@ -33,9 +30,7 @@ class UserService {
 
     if (!updatedUser) throw new CustomError("User was not found", 400);
 
-    const { password, ...data } = updatedUser.toObject();
-
-    return data;
+    return updatedUser.toObject();
   }
 
   // delete user
@@ -44,9 +39,7 @@ class UserService {
 
     if (!deletedUser) throw new CustomError("User was not found", 400);
 
-    const { password, ...data } = deletedUser.toObject();
-
-    return data;
+    return deletedUser.toObject();
   }
 }
 
