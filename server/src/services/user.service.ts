@@ -34,3 +34,14 @@ export const updateUser = async (id: string, payload: any) => {
 
   return data;
 };
+
+// delete user
+export const deleteUser = async (id: string) => {
+  const deletedUser = await User.findByIdAndDelete(id, { new: true });
+
+  if (!deletedUser) throw new CustomError("User was not found", 400);
+
+  const { password, ...data } = deletedUser.toObject();
+
+  return data;
+};
