@@ -23,3 +23,14 @@ export const findUser = async (payload: any) => {
 
   return data;
 };
+
+// update user
+export const updateUser = async (id: string, payload: any) => {
+  const updatedUser = await User.findByIdAndUpdate(id, payload, { new: true });
+
+  if (!updatedUser) throw new CustomError("User was not found", 400);
+
+  const { password, ...data } = updatedUser.toObject();
+
+  return data;
+};
