@@ -8,7 +8,6 @@ export const userSchema = new mongoose.Schema(
   {
     username: {
       type: String,
-      required: [true, "Username is required"],
       unique: true,
       trim: true,
     },
@@ -50,7 +49,7 @@ userSchema.pre("save", async function (next) {
   const hashedPassword = await bcrypt.hash(this.password, salt);
   this.password = hashedPassword;
 
-  this.username = `@${this.firstname}${this.lastname}${uuidv4()}`;
+  this.username = `@${this.firstname}${this.lastname}${uuidv4().split("-")[0]}`;
   next();
 });
 

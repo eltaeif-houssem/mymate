@@ -22,7 +22,7 @@ app.use(
     credentials: true,
   })
 );
-app.use("/api/v1", appRoutes.authRoute);
+app.use("/api/v1/auth", appRoutes.authRoute);
 app.use(errorHandler);
 
 // init socket io server
