@@ -29,7 +29,7 @@ export const signup = async (
 
     const { role, password, ...data } = user;
 
-    return response.status(201).send({ data, access_token, refresh_token });
+    response.status(201).send({ data, access_token, refresh_token });
   } catch (error) {
     next(error);
   }
@@ -66,7 +66,7 @@ export const signin = async (
 
     const { role, password, ...data } = user;
 
-    return response.status(201).send({ data, access_token, refresh_token });
+    response.status(201).send({ data, access_token, refresh_token });
   } catch (error) {
     next(error);
   }
@@ -87,7 +87,7 @@ export const verifyUserToken = async (
       user = jwtUtil.verifyToken(access_token);
       if (user) {
         const { password, role, ...data } = await userService.findUser(user);
-        return response.status(200).send({ data });
+        response.status(200).send({ data });
       }
     }
 
@@ -98,7 +98,7 @@ export const verifyUserToken = async (
         const new_refresh_token = jwtUtil.refreshAccessToken(refresh_token);
         const { password, role, ...data } = await userService.findUser(user);
 
-        return response.status(201).send({
+        response.status(201).send({
           access_token: new_access_token,
           refresh_token: new_refresh_token,
           data,
@@ -106,7 +106,7 @@ export const verifyUserToken = async (
       }
     }
 
-    return response.status(401).send({ message: "Invalid tokens" });
+    response.status(401).send({ message: "Invalid tokens" });
   } catch (error) {
     next(error);
   }
