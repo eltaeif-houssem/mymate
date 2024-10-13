@@ -10,7 +10,7 @@ export const verifyUser = async (
   response: Response,
   next: NextFunction
 ) => {
-  const token = request.headers.authorization?.split(" ")[0];
+  const token = request.headers.authorization?.split(" ")[1];
   try {
     if (!token) throw new CustomError("you are not authenticated", 401);
 
@@ -30,7 +30,7 @@ export const verifyAdmin = async (
   response: Response,
   next: NextFunction
 ) => {
-  const token = request.headers.authorization?.split(" ")[0];
+  const token = request.headers.authorization?.split(" ")[1];
   try {
     if (!token) throw new CustomError("you are not authenticated", 401);
 
