@@ -29,7 +29,6 @@ export const verifyToken = (token: string): IUser | null => {
     const decoded = jwt.verify(token, JWT_SECRET) as IUser;
     return decoded;
   } catch (error) {
-    console.error("Invalid Token", error);
     return null;
   }
 };
@@ -40,7 +39,6 @@ export const verifyRefreshToken = (refreshToken: string): IUser | null => {
     const decoded = jwt.verify(refreshToken, JWT_REFRESH_SECRET) as IUser;
     return decoded;
   } catch (error) {
-    console.error("Invalid Refresh Token", error);
     return null;
   }
 };
