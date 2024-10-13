@@ -36,7 +36,7 @@ export const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: [Role.ROLE_CLIENT, Role.ROLE_ADMIN],
+      enum: Object.values(Role),
       default: Role.ROLE_CLIENT,
     },
   },
