@@ -46,8 +46,8 @@ export const signin = async (
     const user = await userService.findUser(body);
 
     const isMatch = await bcryptUtil.comparePassword(
-      user.password,
-      body.password
+      body.password,
+      user.password
     );
 
     if (!isMatch) throw new CustomError("Email or password are incorrect", 404);
