@@ -8,6 +8,7 @@ import { readTemplate } from "@utils/template.util";
 import { generateOTP } from "@utils/email.util";
 import emailService from "@services/email.service";
 import Otp from "@models/otp.model";
+import otpService from "@services/otp.service";
 
 // signup user
 export const signup = async (
@@ -130,13 +131,7 @@ export const resetPasswordEmail = async (
     const user = await userService.findUser(body);
     if (!user) throw new CustomError("User does not exist", 404);
 
-    const otp = generateOTP();
-    await Otp.create({
-      otp,
-      userId: user._id,
-      verified: false,
-      expiresAt: new Date(Date.now() + 86400000),
-    });
+    const otp = await otpService.createOtp(`${user._id}`);
 
     let htmlTemplate = await readTemplate("otp.template.html");
     htmlTemplate = htmlTemplate.replace("{{OTP_CODE}}", otp);

@@ -10,6 +10,7 @@ class OtpService {
       verified: false,
       expiresAt: new Date(Date.now() + 86400000),
     });
+    return otp;
   }
 }
 
