@@ -111,3 +111,14 @@ export const verifyUserToken = async (
     next(error);
   }
 };
+
+export const resetPasswordEmail = async (
+  request: IUserReq,
+  response: Response,
+  next: NextFunction
+) => {
+  try {
+  } catch (error) {
+    next(error);
+  }
+};
