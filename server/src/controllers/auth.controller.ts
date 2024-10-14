@@ -138,27 +138,27 @@ export const resetPasswordEmail = async (
       expiresAt: new Date(Date.now() + 86400000),
     });
 
-    const htmlTemplate = readTemplate("otp.template.html");
-    htmlTemplate.replace("{{OTP_CODE}}", otp);
-    htmlTemplate.replace(
+    let htmlTemplate = await readTemplate("otp.template.html");
+    htmlTemplate = htmlTemplate.replace("{{OTP_CODE}}", otp);
+    htmlTemplate = htmlTemplate.replace(
       "{{RESET_LINK}}",
       "http://localhost:3000/auth/reset-password"
     );
-    htmlTemplate.replace(
+    htmlTemplate = htmlTemplate.replace(
       "{{CURRENT_YEAR}}",
       new Date().getFullYear().toString()
     );
 
     await emailService.send(
       `${body.email}`,
-      "password reset",
+      "password reset code",
       "",
       htmlTemplate
     );
 
     response
       .status(201)
-      .send({ message: "an reset password code was submitted to your email" });
+      .send({ message: "reset password code was submitted to your email" });
   } catch (error) {
     next(error);
   }
