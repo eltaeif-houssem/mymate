@@ -113,11 +113,16 @@ export const verifyUserToken = async (
 };
 
 export const resetPasswordEmail = async (
-  request: IUserReq,
+  request: Request,
   response: Response,
   next: NextFunction
 ) => {
+  const body = request.body;
   try {
+    if (!body.email) throw new CustomError("Email is required", 400);
+
+    const user = await userService.findUser(body);
+    if (!user) throw new CustomError("User does not exist", 404);
   } catch (error) {
     next(error);
   }
