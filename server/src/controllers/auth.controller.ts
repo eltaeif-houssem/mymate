@@ -70,7 +70,7 @@ export const signin = async (
 
     const { role, password, ...data } = user;
 
-    response.status(201).send({ data, access_token, refresh_token });
+    response.status(200).send({ data, access_token, refresh_token });
   } catch (error) {
     next(error);
   }
