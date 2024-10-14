@@ -92,6 +92,7 @@ export const verifyUserToken = async (
       if (user) {
         const { password, role, ...data } = await userService.findUser(user);
         response.status(200).send({ data });
+        return;
       }
     }
 
@@ -107,6 +108,7 @@ export const verifyUserToken = async (
           refresh_token: new_refresh_token,
           data,
         });
+        return;
       }
     }
 
