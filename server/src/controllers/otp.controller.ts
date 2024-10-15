@@ -6,7 +6,7 @@ import { readTemplate } from "@utils/template.util";
 import { NextFunction, Request, Response } from "express";
 
 // send reset code password
-export const resetPassword = async (
+export const sendOtp = async (
   request: Request,
   response: Response,
   next: NextFunction
@@ -43,7 +43,7 @@ export const resetPassword = async (
 };
 
 // verify otp code
-export const verifyResetPasswordOtp = async (
+export const verifyOtp = async (
   request: Request,
   response: Response,
   next: NextFunction

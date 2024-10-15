@@ -3,6 +3,7 @@ import * as controller from "@controllers/otp.controller";
 
 export const router = Router();
 
-router.post("/reset-password", controller.resetPassword);
+router.post("/", controller.sendOtp);
+router.post("/verify", controller.verifyOtp);
 
 export default router;
