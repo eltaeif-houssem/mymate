@@ -46,7 +46,8 @@ export const signin = async (
 ) => {
   const body = request.body;
   try {
-    const user = await userService.findUser(body);
+    if (!body.email) throw new CustomError("Email is required", 400);
+    const user = await userService.findUser({ email: body.email });
 
     const isMatch = await bcryptUtil.comparePassword(
       body.password,
@@ -100,7 +101,9 @@ export const verifyUserToken = async (
       if (user) {
         const new_access_token = jwtUtil.generateToken(user);
         const new_refresh_token = jwtUtil.refreshAccessToken(refresh_token);
-        const { password, role, ...data } = await userService.findUser(user);
+        const { password, role, ...data } = await userService.findUser({
+          email: user.email,
+        });
 
         response.status(201).send({
           access_token: new_access_token,
@@ -112,6 +115,31 @@ export const verifyUserToken = async (
     }
 
     response.status(401).send({ message: "Invalid tokens" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// reset password
+export const resetPassword = async (
+  request: IUserReq,
+  response: Response,
+  next: NextFunction
+) => {
+  const body = request.body;
+  try {
+    if (!body.email) throw new CustomError("Email is required", 400);
+
+    if (!body.otp) throw new CustomError("Otp code is required", 400);
+
+    const user = await userService.findUser({ email: body.email });
+    if (!user) throw new CustomError("User does not exist", 404);
+
+    await otpService.checkOtp({
+      userId: `${user._id}`,
+      otp: body.otp,
+      verified: true,
+    });
   } catch (error) {
     next(error);
   }

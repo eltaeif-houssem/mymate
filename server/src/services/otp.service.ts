@@ -44,8 +44,6 @@ class OtpService {
     if (today > otp.expiresAt) {
       throw new CustomError("otp code is expired");
     }
-
-    return otp;
   }
 }
 
