@@ -3,7 +3,7 @@ import * as controller from "@controllers/otp.controller";
 
 export const router = Router();
 
-router.post("/", controller.sendOtp);
-router.post("/verify", controller.verifyOtp);
+router.post("/send-otp", controller.sendOtp);
+router.post("/verify-otp", controller.verifyOtp);
 
 export default router;
