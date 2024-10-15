@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { Role } from "@interfaces/user.interface";
-import bcrypt from "bcrypt";
+import * as bcryptUtil from "@utils/bcrypt.util";
 import { v4 as uuidv4 } from "uuid";
 
 // define user schema
@@ -45,10 +45,7 @@ export const userSchema = new mongoose.Schema(
 
 // hash password before saving the user
 userSchema.pre("save", async function (next) {
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(this.password, salt);
-  this.password = hashedPassword;
-
+  this.password = await bcryptUtil.hashPassword(this.password);
   this.username = `@${this.firstname}${this.lastname}${uuidv4().split("-")[0]}`;
   next();
 });
