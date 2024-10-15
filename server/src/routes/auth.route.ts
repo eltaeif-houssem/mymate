@@ -6,5 +6,6 @@ export const router = Router();
 router.post("/signup", controller.signup);
 router.post("/signin", controller.signin);
 router.post("/verify-token", controller.verifyUserToken);
+router.post("/reset-password", controller.resetPassword);
 
 export default router;
