@@ -4,8 +4,6 @@ import * as jwtUtil from "@utils/jwt.util";
 import * as bcryptUtil from "@utils/bcrypt.util";
 import { CustomError } from "@utils/errors.util";
 import { IUserReq } from "@interfaces/request.interface";
-import { readTemplate } from "@utils/template.util";
-import emailService from "@services/email.service";
 import otpService from "@services/otp.service";
 
 // signup user
@@ -140,6 +138,27 @@ export const resetPassword = async (
       otp: body.otp,
       verified: true,
     });
+
+    const hashedPassword = await bcryptUtil.hashPassword(body.password);
+    await userService.updateUser(`${user._id}`, {
+      password: `${hashedPassword}`,
+    });
+
+    const access_token = jwtUtil.generateToken({
+      id: `${user._id}`,
+      email: user.email,
+      role: user.role,
+    });
+
+    const refresh_token = jwtUtil.generateRefreshToken({
+      id: `${user._id}`,
+      email: user.email,
+      role: user.role,
+    });
+
+    const { role, password, ...data } = user;
+
+    response.status(201).send({ data, access_token, refresh_token });
   } catch (error) {
     next(error);
   }
