@@ -26,6 +26,10 @@ class OtpService {
       throw new CustomError("otp code is expired");
     }
 
+    if (otp.verified) {
+      throw new CustomError("this otp code already used");
+    }
+
     await Otp.findOneAndUpdate(payload, { verified: true });
   }
 }
