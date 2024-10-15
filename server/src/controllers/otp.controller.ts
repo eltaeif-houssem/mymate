@@ -55,9 +55,13 @@ export const verifyResetPasswordOtp = async (
     const user = await userService.findUser(body);
     if (!user) throw new CustomError("User does not exist", 404);
 
-    await otpService.verifyOtp({ userId: `${user._id}`, otp: body.otp });
+    await otpService.verifyOtp({
+      userId: `${user._id}`,
+      otp: body.otp,
+      verified: false,
+    });
 
-    response.status(200).send({ message: "otp was verified" });
+    response.status(200).send({ message: "otp code was verified" });
   } catch (error) {
     next(error);
   }
