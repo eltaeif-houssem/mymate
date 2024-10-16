@@ -1,5 +1,5 @@
-import { RouteObject } from "react-router-dom";
+import { MyRouteObject } from "@interfaces/route.interface";
 
-export const routes: RouteObject[] = [];
+export const routes: MyRouteObject[] = [];
 
 export default routes;

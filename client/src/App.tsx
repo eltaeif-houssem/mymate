@@ -1,9 +1,17 @@
-import React from "react";
+import React, { Suspense } from "react";
+import { Routes, Route } from "react-router-dom";
+import routes from "@routes/index.route";
 
 const App: React.FC = () => {
   return (
     <div className="w-full min-h-full">
-      <h1 className="text-3xl font-bold">Hey bro</h1>
+      <Suspense fallback={<p>Loading...</p>}>
+        <Routes>
+          {routes.map((route) => (
+            <Route path={route.path} element={route.element} />
+          ))}
+        </Routes>
+      </Suspense>
     </div>
   );
 };
