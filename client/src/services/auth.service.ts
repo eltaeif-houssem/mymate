@@ -29,9 +29,13 @@ class AuthService {
     }
   }
 
-  async resetPassword() {
+  async resetPassword(body: IResetPassword) {
     try {
-    } catch (error) {}
+      const { data } = await authApi.resetPassword(body);
+      return data;
+    } catch (error: any) {
+      return { error: `${error.message}` };
+    }
   }
 }
 
