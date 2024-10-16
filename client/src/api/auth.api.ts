@@ -5,7 +5,7 @@ import {
   AUTH_SIGNIN,
   AUTH_VERIFY_TOKEN,
   AUTH_RESET_PASSWORD,
-} from "@constants/api.urls";
+} from "@/constants/api-urls.constants";
 
 export const signup = async (body: ISignup) => axios.post(AUTH_SIGNUP, body);
 
