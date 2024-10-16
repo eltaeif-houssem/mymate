@@ -13,3 +13,9 @@ export interface IResetPassword {
   password: string;
   otp: number;
 }
+
+export interface IAuthResp {
+  data: any;
+  access_token: string;
+  refresh_token: string;
+}

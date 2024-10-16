@@ -4,6 +4,8 @@ class AuthStore {
   constructor() {
     makeAutoObservable(this);
   }
+
+  authenticate() {}
 }
 
 export const authStore = new AuthStore();
