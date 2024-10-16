@@ -11,9 +11,13 @@ class AuthService {
     }
   }
 
-  async signin() {
+  async signin(body: ISignin) {
     try {
-    } catch (error) {}
+      const { data } = await authApi.signin(body);
+      return data;
+    } catch (error: any) {
+      return { error: `${error.message}` };
+    }
   }
 
   async verifyToken() {
