@@ -1,4 +1,6 @@
+import { IUser } from "./user.interface";
+
 export interface IAuthSate {
   isLoggedIn: boolean;
-  user: any;
+  user: IUser | null;
 }
