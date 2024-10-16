@@ -10,6 +10,15 @@ class OtpService {
       return { error: `${error.message}` };
     }
   }
+
+  async verifyOtp(body: IVerifyOtp) {
+    try {
+      const { data } = await otpApi.verifyOtp(body);
+      return data;
+    } catch (error: any) {
+      return { error: `${error.message}` };
+    }
+  }
 }
 
 export const otpService = new OtpService();
