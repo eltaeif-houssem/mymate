@@ -20,6 +20,15 @@ class AuthStore {
       user: payload.data,
     };
   }
+
+  signout() {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    this.auth = {
+      isLoggedIn: false,
+      user: null,
+    };
+  }
 }
 
 export const authStore = new AuthStore();
