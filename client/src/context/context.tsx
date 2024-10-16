@@ -3,6 +3,7 @@ import { IAppContext } from "@interfaces/context.interface";
 import authStore from "@store/auth.store";
 import authService from "@/services/auth.service";
 import { useNavigate } from "react-router-dom";
+import * as routePaths from "@constants/route-urls.constant";
 
 const AppContext = createContext<IAppContext>({
   authStore,
@@ -30,8 +31,10 @@ const AppContextProvider: React.FC<Props> = ({ children }) => {
 
         if (!response.error) {
           authStore.authenticate(response);
-          navigate("/");
+          navigate(routePaths.HOME);
         }
+      } else {
+        navigate(routePaths.AUTH_SIGNIN);
       }
     };
 

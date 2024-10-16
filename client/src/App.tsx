@@ -11,15 +11,15 @@ const App: React.FC = () => {
         <Routes>
           {routes
             .filter((route) => {
-              if (route.path === "*") {
-                return true;
+              if (!route.auth) {
+                return false;
               }
 
               if (route.auth === ctx.authStore.auth.isLoggedIn) {
-                return true;
+                return false;
               }
 
-              return false;
+              return true;
             })
             .map((route) => (
               <Route path={route.path} element={route.element} />
