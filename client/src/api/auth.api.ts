@@ -1,16 +1,22 @@
 import axios from "./axios.api";
 import { ISignup, ISignin, IResetPassword } from "@interfaces/auth.interface";
+import {
+  AUTH_SIGNUP,
+  AUTH_SIGNIN,
+  AUTH_VERIFY_TOKEN,
+  AUTH_RESET_PASSWORD,
+} from "@constants/api.urls";
 
-export const signup = async (body: ISignup) => axios.post("/auth/signup", body);
+export const signup = async (body: ISignup) => axios.post(AUTH_SIGNUP, body);
 
-export const signin = async (body: ISignin) => axios.post("/auth/signin", body);
+export const signin = async (body: ISignin) => axios.post(AUTH_SIGNIN, body);
 
 export const verifyToken = async (
   access_token: string,
   refresh_token: string
 ) =>
   axios.post(
-    "/auth/verify-token",
+    AUTH_VERIFY_TOKEN,
     { refresh_token },
     {
       headers: {
@@ -20,4 +26,4 @@ export const verifyToken = async (
   );
 
 export const resetPassword = async (body: IResetPassword) =>
-  axios.post("/auth/reset-password", body);
+  axios.post(AUTH_RESET_PASSWORD, body);
