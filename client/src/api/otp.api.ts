@@ -1,8 +1,8 @@
 import axios from "./axios.api";
 import { IVerifyOtp } from "@interfaces/otp.interface";
+import { OTP_SEND, OTP_VERIFY } from "@constants/api.urls";
 
-export const sendOtp = async (email: string) =>
-  axios.post("/otp/send-otp", { email });
+export const sendOtp = async (email: string) => axios.post(OTP_SEND, { email });
 
 export const verifyOtp = async (body: IVerifyOtp) =>
-  axios.post("/otp/verify-otp", body);
+  axios.post(OTP_VERIFY, body);
