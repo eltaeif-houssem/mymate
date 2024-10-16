@@ -4,7 +4,12 @@ export interface ISignin {
 }
 
 export interface ISignup extends ISignin {
-  confirmPassword: string;
   firstname: string;
   lastname: string;
+}
+
+export interface IResetPassword {
+  email: string;
+  password: string;
+  otp: string;
 }

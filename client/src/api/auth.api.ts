@@ -1,8 +1,9 @@
 import axios from "./axios.api";
+import { ISignup, ISignin, IResetPassword } from "@interfaces/auth.interface";
 
-export const signup = async (body: any) => axios.post("/auth/signup", body);
+export const signup = async (body: ISignup) => axios.post("/auth/signup", body);
 
-export const signin = async (body: any) => axios.post("/auth/signin", body);
+export const signin = async (body: ISignin) => axios.post("/auth/signin", body);
 
 export const verifyToken = async (
   access_token: string,
@@ -14,5 +15,5 @@ export const verifyToken = async (
     },
   });
 
-export const resetPassword = async (body: any) =>
+export const resetPassword = async (body: IResetPassword) =>
   axios.post("/auth/reset-password", body);
