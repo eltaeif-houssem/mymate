@@ -20,9 +20,13 @@ class AuthService {
     }
   }
 
-  async verifyToken() {
+  async verifyToken(access_token: string, refresh_token: string) {
     try {
-    } catch (error) {}
+      const { data } = await authApi.verifyToken(access_token, refresh_token);
+      return data;
+    } catch (error: any) {
+      return { error: `${error.message}` };
+    }
   }
 
   async resetPassword() {
