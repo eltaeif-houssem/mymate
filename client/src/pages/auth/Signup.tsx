@@ -9,7 +9,7 @@ import * as routePaths from "@constants/route-urls.constant";
 
 const Signup: React.FC = () => {
   const { authStore } = useAppContext();
-  const { control, register, handleSubmit } = useForm<ISignupForm>();
+  const { control, register, handleSubmit, watch } = useForm<ISignupForm>();
   const navigate = useNavigate();
 
   const onSubmit = async (data: ISignupForm) => {
@@ -157,6 +157,17 @@ const Signup: React.FC = () => {
                   required: {
                     value: true,
                     message: "confirm password is required",
+                  },
+
+                  validate: () => {
+                    const pwd = watch("password");
+                    const cnfPwd = watch("cnfPassword");
+
+                    if (cnfPwd !== pwd) {
+                      return "passwords should be the same";
+                    }
+
+                    return true;
                   },
                 })}
                 type="text"
