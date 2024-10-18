@@ -103,6 +103,10 @@ const Signup: React.FC = () => {
                     value: true,
                     message: "email is required",
                   },
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: "enter a valid email",
+                  },
                 })}
                 type="text"
                 placeholder="Email"
