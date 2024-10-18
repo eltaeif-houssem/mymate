@@ -182,10 +182,11 @@ const Signup: React.FC = () => {
 
         <p className="text-center">
           Already have an account?{" "}
-          <Link to="/auth/signin" className="underline">
+          <Link to={routePaths.AUTH_SIGNIN} className="underline">
             Signin
           </Link>
         </p>
+
         <button
           type="submit"
           className="w-full py-2 mt-6 text-base font-semibold text-white bg-blue-400 rounded-md"

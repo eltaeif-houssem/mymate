@@ -5,3 +5,8 @@ export interface ISignupForm {
   password: string;
   cnfPassword: string;
 }
+
+export interface ISigninForm {
+  email: string;
+  password: string;
+}
