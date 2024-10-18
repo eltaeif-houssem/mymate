@@ -5,4 +5,5 @@ export interface Props {
   type: "text" | "password";
   onChange: (...event: any[]) => void;
   error?: FieldError;
+  placeholder?: string;
 }

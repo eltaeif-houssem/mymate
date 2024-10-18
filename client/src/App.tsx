@@ -21,8 +21,8 @@ const App: React.FC = () => {
 
               return false;
             })
-            .map((route) => (
-              <Route path={route.path} element={route.element} />
+            .map((route, key) => (
+              <Route path={route.path} element={route.element} key={key} />
             ))}
         </Routes>
       </Suspense>
