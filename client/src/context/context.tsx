@@ -30,7 +30,11 @@ const AppContextProvider: React.FC<Props> = ({ children }) => {
         );
 
         if (!response.error) {
-          authStore.authenticate(response);
+          authStore.authenticate({
+            data: response.data,
+            access_token,
+            refresh_token,
+          });
           navigate(routePaths.HOME);
         }
       } else {

@@ -2,12 +2,27 @@ import DefaultTextField from "@/components/textfields/DefaultTextField";
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { ISignupForm } from "@interfaces/forms.interface";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import authService from "@/services/auth.service";
+import { useAppContext } from "@/context/context";
+import * as routePaths from "@constants/route-urls.constant";
 
 const Signup: React.FC = () => {
+  const { authStore } = useAppContext();
   const { control, register, handleSubmit } = useForm<ISignupForm>();
+  const navigate = useNavigate();
 
-  const onSubmit = (data: ISignupForm) => {};
+  const onSubmit = async (data: ISignupForm) => {
+    const response = await authService.signup(data);
+
+    if (response.error) {
+      console.log(response.error);
+      return;
+    }
+
+    authStore.authenticate(response);
+    navigate(routePaths.HOME);
+  };
 
   return (
     <div className="w-full h-screen bg-blue-50 flex flex-col justify-center items-center">

@@ -11,6 +11,12 @@ const ErrorPage = lazy(() => import("@pages/ErrorPage"));
 
 export const routes: MyRouteObject[] = [
   {
+    path: "/",
+    element: <p>Home</p>,
+    auth: true,
+  },
+
+  {
     path: routePaths.AUTH_SIGNIN,
     element: <SigninPage />,
     auth: false,

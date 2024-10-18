@@ -7,7 +7,7 @@ class AuthService {
       const { data } = await authApi.signup(body);
       return data;
     } catch (error: any) {
-      return { error: `${error.message}` };
+      return { error: `${error.response.data.message}` };
     }
   }
 
@@ -16,7 +16,7 @@ class AuthService {
       const { data } = await authApi.signin(body);
       return data;
     } catch (error: any) {
-      return { error: `${error.message}` };
+      return { error: `${error.response.data.message}` };
     }
   }
 
@@ -25,7 +25,7 @@ class AuthService {
       const { data } = await authApi.verifyToken(access_token, refresh_token);
       return data;
     } catch (error: any) {
-      return { error: `${error.message}` };
+      return { error: `${error.response.data.message}` };
     }
   }
 
@@ -34,7 +34,7 @@ class AuthService {
       const { data } = await authApi.resetPassword(body);
       return data;
     } catch (error: any) {
-      return { error: `${error.message}` };
+      return { error: `${error.response.data.message}` };
     }
   }
 }
