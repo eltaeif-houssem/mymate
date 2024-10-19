@@ -9,9 +9,13 @@ import * as routePaths from "@constants/route-urls.constant";
 import authImage from "../../assets/auth-1.svg";
 import { toast } from "react-toastify";
 
+// define env vars
+const { VITE_APP_GUEST_USER_EMAIL, VITE_APP_GUEST_USER_PASSWORD } = import.meta
+  .env;
+
 const Signin: React.FC = () => {
   const { authStore } = useAppContext();
-  const { control, register, handleSubmit } = useForm<ISigninForm>();
+  const { control, register, handleSubmit, setValue } = useForm<ISigninForm>();
   const navigate = useNavigate();
 
   const onSubmit = async (data: ISigninForm) => {
@@ -24,6 +28,12 @@ const Signin: React.FC = () => {
 
     authStore.authenticate(response);
     navigate(routePaths.HOME);
+  };
+
+  const joinAsGuest = () => {
+    setValue("email", `${VITE_APP_GUEST_USER_EMAIL}`);
+    setValue("password", `${VITE_APP_GUEST_USER_PASSWORD}`);
+    handleSubmit(onSubmit)();
   };
 
   return (
@@ -120,8 +130,9 @@ const Signin: React.FC = () => {
             Enter Account
           </button>
           <button
-            type="submit"
+            type="button"
             className="w-full py-2 mt-4 text-base font-semibold text-white bg-orange-400 rounded-md"
+            onClick={joinAsGuest}
           >
             Join as Guest
           </button>
