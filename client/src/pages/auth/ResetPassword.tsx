@@ -12,6 +12,7 @@ import * as routePaths from "@constants/route-urls.constant";
 import DefaultTextField from "@/components/textfields/DefaultTextField";
 import authImage from "../../assets/auth-3.svg";
 import otpService from "@/services/otp.service";
+import authService from "@/services/auth.service";
 
 const ResetPassword: React.FC = () => {
   const { authStore } = useAppContext();
@@ -19,7 +20,7 @@ const ResetPassword: React.FC = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
   const sendOtpForm = useForm<ISendOtpForm>();
   const verifyOtpForm = useForm<IVerifyOtpForm>();
-  const resetPasswordForm = useForm<IVerifyOtpForm>();
+  const resetPasswordForm = useForm<IResetPasswordForm>();
   const navigate = useNavigate();
 
   const sendOtpCodeHandler = async (data: ISendOtpForm) => {
@@ -49,7 +50,26 @@ const ResetPassword: React.FC = () => {
     }
 
     toast.success(response.message);
+
+    resetPasswordForm.setValue("email", verifyOtpForm.getValues("email"));
+    resetPasswordForm.setValue("otp", verifyOtpForm.getValues("otp"));
     setStep(3);
+  };
+
+  const resetPasswordHandler = async (data: IResetPasswordForm) => {
+    setLoading(true);
+    const response = await authService.resetPassword(data);
+    setLoading(false);
+
+    if (response.error) {
+      toast.error(response.error);
+      return;
+    }
+
+    toast.success("Your password was successfully updated");
+
+    authStore.authenticate(response);
+    navigate(routePaths.HOME);
   };
 
   return (
@@ -172,6 +192,86 @@ const ResetPassword: React.FC = () => {
             className="w-full py-2 mt-4 text-base font-semibold text-white bg-blue-400 rounded-md"
           >
             Verify Otp Code
+          </button>
+        </form>
+
+        <form
+          onSubmit={resetPasswordForm.handleSubmit(resetPasswordHandler)}
+          className={`w-1/2 ${step !== 3 && "hidden"}`}
+        >
+          <div className="mb-2">
+            <label htmlFor="password" className="font-semibold">
+              New Password
+            </label>
+            <Controller
+              name="password"
+              control={resetPasswordForm.control}
+              defaultValue=""
+              render={({
+                fieldState: { error },
+                field: { value, onChange },
+              }) => (
+                <DefaultTextField
+                  {...resetPasswordForm.register("password", {
+                    required: {
+                      value: true,
+                      message: "password is required",
+                    },
+                  })}
+                  type="password"
+                  placeholder="Password"
+                  value={value}
+                  onChange={onChange}
+                  error={error}
+                />
+              )}
+            />
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="cnfPassword" className="font-semibold">
+              Confirm Password
+            </label>
+            <Controller
+              name="cnfPassword"
+              control={resetPasswordForm.control}
+              defaultValue=""
+              render={({
+                fieldState: { error },
+                field: { value, onChange },
+              }) => (
+                <DefaultTextField
+                  {...resetPasswordForm.register("cnfPassword", {
+                    required: {
+                      value: true,
+                      message: "confirm password is required",
+                    },
+
+                    validate: () => {
+                      const pwd = resetPasswordForm.watch("password");
+                      const cnfPwd = resetPasswordForm.watch("cnfPassword");
+
+                      if (cnfPwd !== pwd) {
+                        return "passwords should be the same";
+                      }
+
+                      return true;
+                    },
+                  })}
+                  type="password"
+                  placeholder="Confirm password"
+                  value={value}
+                  onChange={onChange}
+                  error={error}
+                />
+              )}
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full py-2 mt-4 text-base font-semibold text-white bg-blue-400 rounded-md"
+          >
+            Update Password
           </button>
         </form>
       </div>

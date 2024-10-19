@@ -13,7 +13,7 @@ export interface ISignup extends ISignin {
 export interface IResetPassword {
   email: string;
   password: string;
-  otp: number;
+  otp: string;
 }
 
 export interface IAuthResp {

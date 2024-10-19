@@ -1,4 +1,4 @@
-import { ISignin, ISignup } from "./auth.interface";
+import { ISignin, ISignup, IResetPassword } from "./auth.interface";
 import { IVerifyOtp } from "./otp.interface";
 
 export interface ISignupForm extends ISignup {
@@ -13,6 +13,7 @@ export interface ISendOtpForm {
 
 export interface IVerifyOtpForm extends IVerifyOtp {}
 
-export interface IResetPasswordForm extends IVerifyOtp {
+export interface IResetPasswordForm extends IResetPassword {
   password: string;
+  cnfPassword: string;
 }
