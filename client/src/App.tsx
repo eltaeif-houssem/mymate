@@ -2,6 +2,8 @@ import React, { Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import routes from "@routes/index.route";
 import { useAppContext } from "./context/context";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App: React.FC = () => {
   const ctx = useAppContext();
@@ -26,6 +28,7 @@ const App: React.FC = () => {
             ))}
         </Routes>
       </Suspense>
+      <ToastContainer position="bottom-left" autoClose={5000} />
     </div>
   );
 };

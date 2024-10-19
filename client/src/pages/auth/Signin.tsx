@@ -7,6 +7,7 @@ import authService from "@/services/auth.service";
 import { useAppContext } from "@/context/context";
 import * as routePaths from "@constants/route-urls.constant";
 import authImage from "../../assets/auth-1.svg";
+import { toast } from "react-toastify";
 
 const Signin: React.FC = () => {
   const { authStore } = useAppContext();
@@ -17,7 +18,7 @@ const Signin: React.FC = () => {
     const response = await authService.signin(data);
 
     if (response.error) {
-      console.log(response.error);
+      toast.error(`${response.error}`);
       return;
     }
 
