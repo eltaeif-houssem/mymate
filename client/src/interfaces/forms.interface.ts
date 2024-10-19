@@ -1,3 +1,6 @@
+import { ISignin } from "./auth.interface";
+import { IVerifyOtp } from "./otp.interface";
+
 export interface ISignupForm {
   firstname: string;
   lastname: string;
@@ -6,11 +9,10 @@ export interface ISignupForm {
   cnfPassword: string;
 }
 
-export interface ISigninForm {
+export interface ISigninForm extends ISignin {}
+
+export interface ISendOtpForm {
   email: string;
-  password: string;
 }
 
-export interface IOtpForm {
-  email: string;
-}
+export interface IVerifyOtpForm extends IVerifyOtp {}

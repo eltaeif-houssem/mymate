@@ -1,4 +1,4 @@
 export interface IVerifyOtp {
   email: string;
-  otp: number;
+  otp: string;
 }
