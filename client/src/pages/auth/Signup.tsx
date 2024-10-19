@@ -152,7 +152,7 @@ const Signup: React.FC = () => {
                       message: "password is required",
                     },
                   })}
-                  type="text"
+                  type="password"
                   placeholder="Password"
                   value={value}
                   onChange={onChange}
@@ -192,7 +192,7 @@ const Signup: React.FC = () => {
                       return true;
                     },
                   })}
-                  type="text"
+                  type="password"
                   placeholder="Confirm password"
                   value={value}
                   onChange={onChange}

@@ -92,7 +92,7 @@ const Signin: React.FC = () => {
                       message: "password is required",
                     },
                   })}
-                  type="text"
+                  type="password"
                   placeholder="Password"
                   value={value}
                   onChange={onChange}
