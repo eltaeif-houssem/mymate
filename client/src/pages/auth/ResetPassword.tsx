@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useAppContext } from "@/context/context";
 import { Controller, useForm } from "react-hook-form";
-import { ISendOtpForm, IVerifyOtpForm } from "@interfaces/forms.interface";
+import {
+  ISendOtpForm,
+  IVerifyOtpForm,
+  IResetPasswordForm,
+} from "@interfaces/forms.interface";
 import { useNavigate } from "react-router-dom";
 import * as routePaths from "@constants/route-urls.constant";
 import DefaultTextField from "@/components/textfields/DefaultTextField";
@@ -13,8 +17,9 @@ const ResetPassword: React.FC = () => {
   const { authStore } = useAppContext();
   const [step, setStep] = useState<number>(1);
   const [isLoading, setLoading] = useState<boolean>(false);
-  const sendOtp = useForm<ISendOtpForm>();
-  const verifyOtp = useForm<IVerifyOtpForm>();
+  const sendOtpForm = useForm<ISendOtpForm>();
+  const verifyOtpForm = useForm<IVerifyOtpForm>();
+  const resetPasswordForm = useForm<IVerifyOtpForm>();
   const navigate = useNavigate();
 
   const sendOtpCodeHandler = async (data: ISendOtpForm) => {
@@ -29,7 +34,7 @@ const ResetPassword: React.FC = () => {
 
     toast.success(response.message);
 
-    verifyOtp.setValue("email", data.email);
+    verifyOtpForm.setValue("email", data.email);
     setStep(2);
   };
 
@@ -62,7 +67,7 @@ const ResetPassword: React.FC = () => {
       <div className="flex-1 flex flex-col justify-center">
         <h2 className="text-4xl font-bold mb-8">Reset password</h2>
         <form
-          onSubmit={sendOtp.handleSubmit(sendOtpCodeHandler)}
+          onSubmit={sendOtpForm.handleSubmit(sendOtpCodeHandler)}
           className={`w-1/2 ${step !== 1 && "hidden"}`}
         >
           <div className="mb-2">
@@ -71,14 +76,14 @@ const ResetPassword: React.FC = () => {
             </label>
             <Controller
               name="email"
-              control={sendOtp.control}
+              control={sendOtpForm.control}
               defaultValue=""
               render={({
                 fieldState: { error },
                 field: { value, onChange },
               }) => (
                 <DefaultTextField
-                  {...sendOtp.register("email", {
+                  {...sendOtpForm.register("email", {
                     required: {
                       value: true,
                       message: "email is required",
@@ -130,7 +135,7 @@ const ResetPassword: React.FC = () => {
         </form>
 
         <form
-          onSubmit={verifyOtp.handleSubmit(verifyOtpCodeHandler)}
+          onSubmit={verifyOtpForm.handleSubmit(verifyOtpCodeHandler)}
           className={`w-1/2 ${step !== 2 && "hidden"}`}
         >
           <div className="mb-2">
@@ -139,14 +144,14 @@ const ResetPassword: React.FC = () => {
             </label>
             <Controller
               name="otp"
-              control={verifyOtp.control}
+              control={verifyOtpForm.control}
               defaultValue=""
               render={({
                 fieldState: { error },
                 field: { value, onChange },
               }) => (
                 <DefaultTextField
-                  {...verifyOtp.register("otp", {
+                  {...verifyOtpForm.register("otp", {
                     required: {
                       value: true,
                       message: "otp is required",
