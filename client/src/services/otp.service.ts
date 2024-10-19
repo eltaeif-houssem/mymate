@@ -7,7 +7,7 @@ class OtpService {
       const { data } = await otpApi.sendOtp(email);
       return data;
     } catch (error: any) {
-      return { error: `${error.message}` };
+      return { error: `${error.response.data.message}` };
     }
   }
 
@@ -16,7 +16,7 @@ class OtpService {
       const { data } = await otpApi.verifyOtp(body);
       return data;
     } catch (error: any) {
-      return { error: `${error.message}` };
+      return { error: `${error.response.data.message}` };
     }
   }
 }
