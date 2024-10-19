@@ -53,7 +53,7 @@ export const verifyOtp = async (
     if (!body.email) throw new CustomError("Email is required", 400);
 
     const user = await userService.findUser(body);
-    if (!user) throw new CustomError("User does not exist", 404);
+    if (!user) throw new CustomError("User does not exist", 400);
 
     await otpService.verifyOtp({
       userId: `${user._id}`,
