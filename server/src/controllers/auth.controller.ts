@@ -89,7 +89,7 @@ export const verifyUserToken = async (
       user = jwtUtil.verifyToken(access_token);
       if (user) {
         const { password, role, ...data } = await userService.findUser(user);
-        response.status(200).send({ data });
+        response.status(200).send({ data, access_token, refresh_token });
         return;
       }
     }
