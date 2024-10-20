@@ -16,7 +16,7 @@ interface Props {
 const Header: React.FC<Props> = (props) => {
   const { value, onClick, onChange } = props;
   return (
-    <div className="w-full h-20 bg-blue-200 flex items-center justify-between px-12">
+    <div className="w-full h-20 bg-blue-200 flex items-center justify-between px-12 fixed left-0 top-0">
       <div className="flex items-center">
         <Link to={routePaths.HOME} className="mr-14">
           <img src={logo} alt="logo" className="w-10" />
