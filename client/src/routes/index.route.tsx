@@ -7,12 +7,14 @@ const SigninPage = lazy(() => import("@pages/auth/Signin"));
 const SignupPage = lazy(() => import("@pages/auth/Signup"));
 const ResetPasswordPage = lazy(() => import("@pages/auth/ResetPassword"));
 
+const HomePage = lazy(() => import("@pages/home/Home"));
+
 const ErrorPage = lazy(() => import("@pages/ErrorPage"));
 
 export const routes: MyRouteObject[] = [
   {
     path: "/",
-    element: <p>Home</p>,
+    element: <HomePage />,
     auth: true,
   },
 
