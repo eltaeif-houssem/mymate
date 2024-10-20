@@ -20,30 +20,28 @@ const AppContextProvider: React.FC<Props> = ({ children }) => {
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
-      try {
-        const access_token = localStorage.getItem("access_token");
-        const refresh_token = localStorage.getItem("refresh_token");
+      const access_token = localStorage.getItem("access_token");
+      const refresh_token = localStorage.getItem("refresh_token");
 
-        if (access_token && refresh_token) {
-          const response = await authService.verifyToken(
+      if (access_token && refresh_token) {
+        const response = await authService.verifyToken(
+          access_token,
+          refresh_token
+        );
+
+        if (!response.error) {
+          authStore.authenticate({
+            data: response.data,
             access_token,
-            refresh_token
-          );
-
-          if (!response.error) {
-            authStore.authenticate({
-              data: response.data,
-              access_token,
-              refresh_token,
-            });
-            navigate(routePaths.HOME);
-          } else {
-            navigate(routePaths.AUTH_SIGNIN);
-          }
-        } else {
-          navigate(routePaths.AUTH_SIGNIN);
+            refresh_token,
+          });
+          navigate(routePaths.HOME);
+          return;
         }
-      } catch (error) {
+
+        authStore.signout();
+        navigate(routePaths.AUTH_SIGNIN);
+      } else {
         navigate(routePaths.AUTH_SIGNIN);
       }
     };
