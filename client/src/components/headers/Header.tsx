@@ -3,6 +3,7 @@ import React from "react";
 import logo from "@assets/logo.png";
 import { Link } from "react-router-dom";
 import SearchTextField from "../textfields/SearchTextField";
+import * as routePaths from "@constants/route-urls.constant";
 
 interface Props {
   value: string;
@@ -15,7 +16,7 @@ const Header: React.FC<Props> = (props) => {
   return (
     <div className="w-full h-20 bg-blue-200 flex items-center justify-between px-12">
       <div className="flex items-center">
-        <Link to="/" className="mr-14">
+        <Link to={routePaths.HOME} className="mr-14">
           <img src={logo} alt="logo" className="w-10" />
         </Link>
         <SearchTextField
