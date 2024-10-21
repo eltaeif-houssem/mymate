@@ -48,6 +48,14 @@ const Home = () => {
                 <i className="fa-solid fa-user-group bg-blue-300 py-1.5 px-2 rounded-md text-xs" />
                 <p className="text-lg ml-2 font-semibold">Find Friends</p>
               </Link>
+
+              <Link
+                to="/"
+                className="flex items-center mt-4 duration-200 hover:opacity-80"
+              >
+                <i className="fa-solid fa-gear bg-blue-300 py-1.5 px-2.5 rounded-md text-xs" />
+                <p className="text-lg ml-2 font-semibold">Settings</p>
+              </Link>
             </div>
           </div>
           <button className="bg-red-500 mb-8 w-52 ml-auto mr-auto text-white font-semibold py-2 rounded-md duration-200 hover:opacity-80">
