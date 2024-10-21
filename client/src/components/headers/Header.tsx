@@ -40,8 +40,11 @@ const Header: React.FC<Props> = (props) => {
         </div>
 
         <div className="flex items-center">
-          <div className="bg-white py-2 px-3 rounded-md mr-4 cursor-pointer hover:opacity-80 duration-200">
-            <i className="fa-solid fa-gear"></i>
+          <div className="bg-white mr-4 py-2 px-3 rounded-md cursor-pointer hover:opacity-80 duration-200 relative">
+            <span className="bg-red-500 text-white absolute text-xs w-4 h-4 text-center rounded-full -right-1 -top-1">
+              1
+            </span>
+            <i className="fa-solid fa-message" />{" "}
           </div>
 
           <div className="bg-white py-2 px-3 rounded-md cursor-pointer hover:opacity-80 duration-200 relative">
