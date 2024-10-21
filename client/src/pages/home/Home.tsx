@@ -1,14 +1,23 @@
 import React from "react";
 import Header from "@components/headers/Header";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import * as routePaths from "@constants/route-urls.constant";
 
 import profilePic from "@assets/profile-1.png";
+import { useAppContext } from "@/context/context";
 
 const Home = () => {
+  const { authStore } = useAppContext();
   const [search, setSearch] = React.useState<string>("");
+  const navigate = useNavigate();
 
   // handle search button clicking
   const searchHandler = () => {};
+
+  const logoutHandler = () => {
+    authStore.signout();
+    navigate(routePaths.AUTH_SIGNIN);
+  };
 
   return (
     <div className="w-full min-h-screen bg-blue-50">
@@ -58,7 +67,10 @@ const Home = () => {
               </Link>
             </div>
           </div>
-          <button className="bg-red-500 mb-8 w-52 ml-auto mr-auto text-white font-semibold py-2 rounded-md duration-200 hover:opacity-80">
+          <button
+            className="bg-red-500 mb-8 w-52 ml-auto mr-auto text-white font-semibold py-2 rounded-md duration-200 hover:opacity-80"
+            onClick={logoutHandler}
+          >
             <i className="fa-solid fa-right-from-bracket mr-2" />
             Logout
           </button>
