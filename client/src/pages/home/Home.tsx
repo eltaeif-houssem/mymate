@@ -27,7 +27,7 @@ const Home = () => {
         onClick={searchHandler}
       />
 
-      <div className="w-full min-h-screen pt-20 relative">
+      <div className="w-full min-h-screen flex pt-20 relative">
         <div className="bg-white w-64 h-[calc(100vh-5rem)] flex flex-col justify-between">
           <div className="w-full h-full flex flex-col py-8 px-6">
             <Link
@@ -75,8 +75,12 @@ const Home = () => {
             Logout
           </button>
         </div>
-        <div></div>
-        <div></div>
+        <div className="flex-1"></div>
+        <div className="bg-white w-72 h-[calc(100vh-5rem)] flex flex-col justify-between">
+          <p className="text-left text-red-500 text-xl font-semibold p-4">
+            People you may know
+          </p>
+        </div>
       </div>
     </div>
   );
