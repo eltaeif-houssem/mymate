@@ -80,6 +80,24 @@ const Home = () => {
           <p className="text-left text-red-500 text-xl font-semibold p-4">
             People you may know
           </p>
+
+          <div className="flex-1 flex-col px-4">
+            <div className="flex items-center mt-4">
+              <Link to="/">
+                <img
+                  src={profilePic}
+                  alt="user-pic"
+                  className="w-14 h-14 duration-200 hover:opacity-80"
+                />
+              </Link>
+              <div className="ml-2">
+                <p className="font-bold">Tony Stark</p>
+                <button className="bg-blue-400 text-white px-6 py-1 text-sm rounded-md duration-200 hover:opacity-80">
+                  follow
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
