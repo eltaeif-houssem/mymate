@@ -31,7 +31,7 @@ const Home = () => {
         <div className="bg-white w-64 h-[calc(100vh-5rem)] flex flex-col justify-between">
           <div className="w-full h-full flex flex-col py-8 px-6">
             <Link
-              to="/"
+              to={routePaths.USER_PROFILE}
               className="flex flex-col items-center duration-200 hover:opacity-80"
             >
               <img src={profilePic} alt="profile-pic" />
@@ -43,7 +43,7 @@ const Home = () => {
                 Explore Pannel
               </p>
               <Link
-                to="/"
+                to={routePaths.USER_PROFILE}
                 className="flex items-center mt-4 duration-200 hover:opacity-80"
               >
                 <i className="fa-solid fa-user bg-blue-300 py-1.5 px-2.5 rounded-md text-xs" />
@@ -51,7 +51,7 @@ const Home = () => {
               </Link>
 
               <Link
-                to="/"
+                to={routePaths.USER_FRIENDS}
                 className="flex items-center mt-4 duration-200 hover:opacity-80"
               >
                 <i className="fa-solid fa-user-group bg-blue-300 py-1.5 px-2 rounded-md text-xs" />
@@ -59,7 +59,7 @@ const Home = () => {
               </Link>
 
               <Link
-                to="/"
+                to={routePaths.USER_SETTINGS}
                 className="flex items-center mt-4 duration-200 hover:opacity-80"
               >
                 <i className="fa-solid fa-gear bg-blue-300 py-1.5 px-2.5 rounded-md text-xs" />
@@ -81,27 +81,54 @@ const Home = () => {
             People you may know
           </p>
 
-          <div className="flex-1 flex-col px-4 overflow-y-scroll scrollbar-none">
-            <div className="flex items-center mt-4">
-              <Link to="/">
-                <img
-                  src={profilePic}
-                  alt="user-pic"
-                  className="w-12.5 h-12 duration-200 hover:opacity-80"
-                />
-              </Link>
-              <div className="ml-2">
-                <p className="font-bold">Tony Stark</p>
-                <button className="bg-blue-400 text-white px-6 py-0.5 text-sm rounded-md duration-200 hover:opacity-80">
-                  follow
-                </button>
+          <div className="flex-1 flex-col px-5 overflow-y-scroll scrollbar-none">
+            {FRIENDS_DATA.map((item, key) => (
+              <div className="flex items-center mt-4" key={key}>
+                <Link
+                  to={routePaths.USER_PROFILE_DETAILS.replace(":id", item._id)}
+                >
+                  <img
+                    src={item.avatar}
+                    alt="user-pic"
+                    className="w-12.5 h-12 duration-200 hover:opacity-80"
+                  />
+                </Link>
+                <div className="ml-2">
+                  <p className="font-bold">{`${item.firstname} ${item.lastname}`}</p>
+                  <button className="bg-blue-400 text-white px-6 py-0.5 text-sm rounded-md duration-200 hover:opacity-80">
+                    follow
+                  </button>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
     </div>
   );
 };
+
+const FRIENDS_DATA = [
+  {
+    _id: "1",
+    avatar: profilePic,
+    firstname: "Joe",
+    lastname: "Rogan",
+  },
+
+  {
+    _id: "2",
+    avatar: profilePic,
+    firstname: "Joe",
+    lastname: "Rogan",
+  },
+
+  {
+    _id: "3",
+    avatar: profilePic,
+    firstname: "Joe",
+    lastname: "Rogan",
+  },
+];
 
 export default Home;
