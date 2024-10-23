@@ -35,13 +35,7 @@ const AppContextProvider: React.FC<Props> = ({ children }) => {
             access_token,
             refresh_token,
           });
-          navigate(routePaths.HOME);
-        } else {
-          authStore.signout();
-          navigate(routePaths.AUTH_SIGNIN);
         }
-      } else {
-        // navigate(routePaths.AUTH_SIGNIN);
       }
     };
 
