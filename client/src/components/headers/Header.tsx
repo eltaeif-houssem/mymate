@@ -31,13 +31,15 @@ const Header: React.FC<Props> = (props) => {
       </div>
 
       <div className="flex items-center">
-        <div className="flex mr-10 cursor-pointer hover:opacity-80 duration-200">
-          <img src={profilePic} alt="profile-logo" className="w-12" />
-          <div className="ml-3">
-            <p className="text-md font-semibold">Steve Rogers</p>
-            <p className="text-xs">@steve_rogers</p>
+        <Link to={routePaths.USER_PROFILE}>
+          <div className="flex mr-10 cursor-pointer hover:opacity-80 duration-200">
+            <img src={profilePic} alt="profile-logo" className="w-12" />
+            <div className="ml-3">
+              <p className="text-md font-semibold">Steve Rogers</p>
+              <p className="text-xs">@steve_rogers</p>
+            </div>
           </div>
-        </div>
+        </Link>
 
         <div className="flex items-center">
           <div className="bg-white mr-4 py-2 px-3 rounded-md cursor-pointer hover:opacity-80 duration-200 relative">
