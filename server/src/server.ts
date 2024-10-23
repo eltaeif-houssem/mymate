@@ -10,7 +10,11 @@ import appRoutes from "@routes/app.route";
 // define vars
 const app = express();
 const server = createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+  },
+});
 const PORT = process.env.PORT || 8080;
 
 // init middlewares
@@ -19,7 +23,6 @@ app.use(express.urlencoded({ extended: true, limit: "3mb" }));
 app.use(
   cors({
     origin: "http://localhost:3000",
-    credentials: true,
   })
 );
 app.use("/api/v1/auth", appRoutes.authRoute);
