@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "@components/headers/Header";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import * as routePaths from "@constants/route-urls.constant";
 
 import profilePic from "@assets/profile-1.png";
@@ -18,6 +18,10 @@ const Home = () => {
     authStore.signout();
     navigate(routePaths.AUTH_SIGNIN);
   };
+
+  if (!authStore.auth.isLoggedIn) {
+    return <Navigate to={routePaths.AUTH_SIGNIN} />;
+  }
 
   return (
     <div className="w-full min-h-screen bg-blue-50">
