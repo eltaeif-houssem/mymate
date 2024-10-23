@@ -87,12 +87,12 @@ const Home = () => {
                 <img
                   src={profilePic}
                   alt="user-pic"
-                  className="w-14 h-12 duration-200 hover:opacity-80"
+                  className="w-12.5 h-12 duration-200 hover:opacity-80"
                 />
               </Link>
               <div className="ml-2">
                 <p className="font-bold">Tony Stark</p>
-                <button className="bg-blue-400 text-white px-6 py-1 text-sm rounded-md duration-200 hover:opacity-80">
+                <button className="bg-blue-400 text-white px-6 py-0.5 text-sm rounded-md duration-200 hover:opacity-80">
                   follow
                 </button>
               </div>
