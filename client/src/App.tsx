@@ -4,10 +4,12 @@ import routes from "@routes/index.route";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import LoadingSpinner from "@components/spinners/LoadingSpinner";
+
 const App: React.FC = () => {
   return (
     <div className="w-full min-h-full">
-      <Suspense fallback={<p>Loading...</p>}>
+      <Suspense fallback={<LoadingSpinner />}>
         <Routes>
           {routes.map((route, key) => (
             <Route path={route.path} element={route.element} key={key} />
