@@ -81,7 +81,7 @@ const Home = () => {
             People you may know
           </p>
 
-          <div className="flex-1 flex-col px-4">
+          <div className="flex-1 flex-col px-4 overflow-y-scroll scrollbar-none">
             <div className="flex items-center mt-4">
               <Link to="/">
                 <img
