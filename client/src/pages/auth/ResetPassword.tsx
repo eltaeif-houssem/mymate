@@ -7,10 +7,10 @@ import {
   IVerifyOtpForm,
   IResetPasswordForm,
 } from "@interfaces/forms.interface";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import * as routePaths from "@constants/route-urls.constant";
 import DefaultTextField from "@/components/textfields/DefaultTextField";
-import authImage from "../../assets/auth-3.svg";
+import authImage from "@assets/auth-3.svg";
 import otpService from "@/services/otp.service";
 import authService from "@/services/auth.service";
 
@@ -71,6 +71,10 @@ const ResetPassword: React.FC = () => {
     authStore.authenticate(response);
     navigate(routePaths.HOME);
   };
+
+  if (authStore.auth.isLoggedIn) {
+    return <Navigate to={routePaths.HOME} />;
+  }
 
   return (
     <div className="w-full h-screen bg-blue-50 flex">

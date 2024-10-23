@@ -2,7 +2,7 @@ import DefaultTextField from "@/components/textfields/DefaultTextField";
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { ISigninForm } from "@interfaces/forms.interface";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import authService from "@/services/auth.service";
 import { useAppContext } from "@/context/context";
 import * as routePaths from "@constants/route-urls.constant";
@@ -35,6 +35,10 @@ const Signin: React.FC = () => {
     setValue("password", `${VITE_APP_GUEST_USER_PASSWORD}`);
     handleSubmit(onSubmit)();
   };
+
+  if (authStore.auth.isLoggedIn) {
+    return <Navigate to={routePaths.HOME} />;
+  }
 
   return (
     <div className="w-full h-screen bg-blue-50 flex">

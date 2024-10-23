@@ -2,7 +2,7 @@ import DefaultTextField from "@/components/textfields/DefaultTextField";
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { ISignupForm } from "@interfaces/forms.interface";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import authService from "@/services/auth.service";
 import { useAppContext } from "@/context/context";
 import * as routePaths from "@constants/route-urls.constant";
@@ -26,6 +26,9 @@ const Signup: React.FC = () => {
     navigate(routePaths.HOME);
   };
 
+  if (authStore.auth.isLoggedIn) {
+    return <Navigate to={routePaths.HOME} />;
+  }
   return (
     <div className="w-full h-screen bg-blue-50 flex">
       <div className="flex flex-col flex-1 justify-center">
