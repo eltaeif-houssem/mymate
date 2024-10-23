@@ -53,6 +53,16 @@ export const routes: RouteObject[] = [
   },
 
   {
+    path: routePaths.USER_MESSAGES,
+    element: <p>Messages</p>,
+  },
+
+  {
+    path: routePaths.USER_NOTIFICATIONS,
+    element: <p>Notifications</p>,
+  },
+
+  {
     path: "*",
     element: <ErrorPage />,
   },
