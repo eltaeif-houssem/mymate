@@ -87,7 +87,7 @@ const Home = () => {
                 <img
                   src={profilePic}
                   alt="user-pic"
-                  className="w-14 h-14 duration-200 hover:opacity-80"
+                  className="w-14 h-12 duration-200 hover:opacity-80"
                 />
               </Link>
               <div className="ml-2">
