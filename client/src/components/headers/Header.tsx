@@ -1,10 +1,9 @@
 import React from "react";
 
 import logo from "@assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import SearchTextField from "../textfields/SearchTextField";
 import * as routePaths from "@constants/route-urls.constant";
-
 import profilePic from "@assets/profile-1.png";
 
 interface Props {
@@ -15,19 +14,22 @@ interface Props {
 
 const Header: React.FC<Props> = (props) => {
   const { value, onClick, onChange } = props;
+  const location = useLocation();
   return (
     <div className="z-50 w-full h-20 bg-blue-200 flex items-center justify-between px-12 fixed left-0 top-0">
       <div className="flex items-center">
         <Link to={routePaths.HOME} className="mr-14">
           <img src={logo} alt="logo" className="w-10" />
         </Link>
-        <SearchTextField
-          type="text"
-          placeholder="Search for friends here..."
-          value={value}
-          onClick={onClick}
-          onChange={onChange}
-        />
+        {(location.pathname === "/" || location.pathname === "") && (
+          <SearchTextField
+            type="text"
+            placeholder="Search for friends here..."
+            value={value}
+            onClick={onClick}
+            onChange={onChange}
+          />
+        )}
       </div>
 
       <div className="flex items-center">

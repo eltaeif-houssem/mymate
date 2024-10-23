@@ -1,7 +1,7 @@
 import React, { createContext, ReactNode, useContext, useEffect } from "react";
 import { IAppContext } from "@interfaces/context.interface";
 import authStore from "@store/auth.store";
-import authService from "@/services/auth.service";
+import authService from "@services/auth.service";
 
 const AppContext = createContext<IAppContext>({
   authStore,
