@@ -9,6 +9,13 @@ const ResetPasswordPage = lazy(() => import("@pages/auth/ResetPassword"));
 
 const HomePage = lazy(() => import("@pages/home/Home"));
 
+const ProfilePage = lazy(() => import("@pages/user/Profile"));
+const ProfileDetailsPage = lazy(() => import("@pages/user/ProfileDetails"));
+const FriendsPage = lazy(() => import("@pages/user/Friends"));
+const SettingsPage = lazy(() => import("@pages/user/Settings"));
+const MessagesPage = lazy(() => import("@pages/user/Messages"));
+const NotificationsPage = lazy(() => import("@pages/user/Notifications"));
+
 const ErrorPage = lazy(() => import("@pages/ErrorPage"));
 
 export const routes: RouteObject[] = [
@@ -34,32 +41,32 @@ export const routes: RouteObject[] = [
 
   {
     path: routePaths.USER_PROFILE,
-    element: <p>Profile</p>,
+    element: <ProfilePage />,
   },
 
   {
     path: routePaths.USER_FRIENDS,
-    element: <p>FRIENDS</p>,
+    element: <FriendsPage />,
   },
 
   {
     path: routePaths.USER_PROFILE_DETAILS,
-    element: <p>PROFILE DETAILS</p>,
+    element: <ProfileDetailsPage />,
   },
 
   {
     path: routePaths.USER_SETTINGS,
-    element: <p>Settings</p>,
+    element: <SettingsPage />,
   },
 
   {
     path: routePaths.USER_MESSAGES,
-    element: <p>Messages</p>,
+    element: <MessagesPage />,
   },
 
   {
     path: routePaths.USER_NOTIFICATIONS,
-    element: <p>Notifications</p>,
+    element: <NotificationsPage />,
   },
 
   {
