@@ -64,7 +64,7 @@ export const fetchAvatar = async (
   }
 };
 
-export const fetchCovers = async (
+export const fetchCover = async (
   request: IUserReq,
   response: Response,
   next: NextFunction
