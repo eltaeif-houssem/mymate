@@ -14,8 +14,7 @@ export const updateAvatar = async (
 
     await profileService.updateUserAvatar(
       {
-        email: user?.email,
-        _id: user?.id,
+        user: user?.id,
       },
       request.file.path
     );
@@ -37,8 +36,7 @@ export const updateCover = async (
 
     await profileService.updateUserCover(
       {
-        email: user?.email,
-        _id: user?.id,
+        user: user?.id,
       },
       request.file.path
     );
