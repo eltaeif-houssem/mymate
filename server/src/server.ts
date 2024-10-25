@@ -27,6 +27,7 @@ app.use(
 );
 app.use("/api/v1/auth", appRoutes.authRoute);
 app.use("/api/v1/otp", appRoutes.otpRoute);
+app.use("/api/v1/profile", appRoutes.profileRoute);
 app.use(errorHandler);
 
 // init socket io server
