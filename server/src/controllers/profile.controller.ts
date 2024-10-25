@@ -16,7 +16,7 @@ export const updateAvatar = async (
       {
         user: user?.id,
       },
-      request.file.path
+      request.file.filename
     );
 
     response.status(201).send({ message: "avatar picture was updated" });
@@ -38,7 +38,7 @@ export const updateCover = async (
       {
         user: user?.id,
       },
-      request.file.path
+      request.file.filename
     );
 
     response.status(201).send({ message: "cover picture was updated" });
