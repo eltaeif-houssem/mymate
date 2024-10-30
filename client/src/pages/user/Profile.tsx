@@ -16,7 +16,7 @@ const Profile: React.FC = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setCoverImage(reader.result as string);
+        // setCoverImage(reader.result as string);
       };
       reader.readAsDataURL(file);
     }
@@ -30,7 +30,7 @@ const Profile: React.FC = () => {
     const reader = new FileReader();
     reader.onloadend = () => {
       console.log(reader.result);
-      setProfileImage(reader.result as string);
+      // setProfileImage(reader.result as string);
     };
     reader.readAsDataURL(file);
   };
