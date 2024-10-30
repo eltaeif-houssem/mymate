@@ -69,7 +69,7 @@ export const updateCover = async (
   }
 };
 
-export const fetchAvatar = async (
+export const getAvatar = async (
   request: IUserReq,
   response: Response,
   next: NextFunction
@@ -85,7 +85,7 @@ export const fetchAvatar = async (
   }
 };
 
-export const fetchCover = async (
+export const getCover = async (
   request: IUserReq,
   response: Response,
   next: NextFunction
