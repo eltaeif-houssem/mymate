@@ -10,12 +10,13 @@ export const getProfile = async (
   next: NextFunction
 ) => {
   const user = request.user;
-  const pid = request.params.pid;
-  try {
-    if (pid !== user?.id)
-      throw new CustomError("You try to fetch another persons profile", 400);
+  const id = request.params.id;
 
-    const userProfile = await profileService.findProfile({ _id: user.id });
+  try {
+    if (id !== user?.id)
+      throw new CustomError("You try to fetch another person profile", 400);
+
+    const userProfile = await profileService.findProfile({ user: user.id });
     if (!userProfile)
       throw new CustomError("Cannot fetchthe user profile", 400);
 

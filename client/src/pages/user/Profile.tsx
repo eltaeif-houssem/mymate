@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "@components/headers/Header";
 import profilePic from "@assets/profile-1.png";
 import coverPic from "@assets/soft-pink-free-solidcolor-background.jpg";
+import profileService from "@services/profile.service";
+import { useAppContext } from "@context/context";
+import LoadingSpinner from "@components/spinners/LoadingSpinner";
 
 const Profile: React.FC = () => {
+  const { authStore } = useAppContext();
+  const [loading, setLoading] = useState<boolean>(true);
   const [coverImage, setCoverImage] = useState("");
   const [profileImage, setProfileImage] = useState("");
+  const [profile, setProfile] = useState<any>();
 
   const handleCoverImageChange = (event: any) => {
     const file = event.target.files?.[0];
@@ -31,6 +37,24 @@ const Profile: React.FC = () => {
     reader.readAsDataURL(file);
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const access_token = localStorage.getItem("access_token");
+      const response = await profileService.fetchProfile(
+        `${authStore.auth.user?._id}`,
+        `${access_token}`
+      );
+
+      setProfile(response);
+      setLoading(false);
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
   return (
     <div className="min-h-screen bg-blue-50">
       <Header value="" onChange={() => {}} onClick={() => {}} />
@@ -40,7 +64,11 @@ const Profile: React.FC = () => {
         <div className="relative h-56 bg-red-200">
           <div className="relative h-56">
             <img
-              src={coverImage ? coverImage : coverPic}
+              src={
+                profile.backgroundPicture
+                  ? `http://localhost:8080/api/v1/profile/cover/${profile.backgroundPicture}`
+                  : coverPic
+              }
               alt="Profile cover"
               className="w-full h-full object-cover"
             />
@@ -65,7 +93,11 @@ const Profile: React.FC = () => {
           <div className="absolute left-24 -bottom-16">
             <div className="relative">
               <img
-                src={profileImage ? profileImage : profilePic}
+                src={
+                  profile.profilePicture
+                    ? `http://localhost:8080/api/v1/profile/avatar/${profile.profilePicture}`
+                    : profilePic
+                }
                 alt="Profile"
                 className="w-32 h-32 rounded-full object-cover border-4 border-white"
               />
