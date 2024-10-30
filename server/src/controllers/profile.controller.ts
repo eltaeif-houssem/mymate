@@ -4,6 +4,27 @@ import { IUserReq } from "@interfaces/request.interface";
 import profileService from "@services/profile.service";
 import path from "path";
 
+export const getProfile = async (
+  request: IUserReq,
+  response: Response,
+  next: NextFunction
+) => {
+  const user = request.user;
+  const pid = request.params.pid;
+  try {
+    if (pid !== user?.id)
+      throw new CustomError("You try to fetch another persons profile", 400);
+
+    const userProfile = await profileService.findProfile({ _id: user.id });
+    if (!userProfile)
+      throw new CustomError("Cannot fetchthe user profile", 400);
+
+    response.status(201).send(userProfile);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const updateAvatar = async (
   request: IUserReq,
   response: Response,
