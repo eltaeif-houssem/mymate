@@ -9,8 +9,6 @@ import LoadingSpinner from "@components/spinners/LoadingSpinner";
 const Profile: React.FC = () => {
   const { authStore } = useAppContext();
   const [loading, setLoading] = useState<boolean>(true);
-  const [coverImage, setCoverImage] = useState("");
-  const [profileImage, setProfileImage] = useState("");
   const [profile, setProfile] = useState<any>();
 
   const handleCoverImageChange = (event: any) => {
