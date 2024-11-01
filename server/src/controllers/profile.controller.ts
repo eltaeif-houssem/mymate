@@ -57,7 +57,6 @@ export const updateCover = async (
   next: NextFunction
 ) => {
   const user = request.user;
-  console.log(request.file);
   try {
     if (!request.file) throw new CustomError("No file was found", 400);
 
