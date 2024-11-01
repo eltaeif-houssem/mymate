@@ -13,5 +13,9 @@ export const updateAvatar = async (body: any, id: string) =>
   axios.put(`/profile/avatar/${id}`, body);
 
 // update profile cover pic
-export const updateCover = async (body: any, id: string) =>
-  axios.put(`/profile/cover/${id}`, body);
+export const updateCover = async (body: any, access_token: string) =>
+  axios.put(`/profile/cover`, body, {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
+  });

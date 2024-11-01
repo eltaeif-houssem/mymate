@@ -1,45 +1,47 @@
-import multer from "multer";
+import multer, { StorageEngine } from "multer";
 import path from "path";
-import fs from "fs";
 
-// Create storage configuration factory
-const createStorage = (folderPath: string) => {
-  return multer.diskStorage({
-    destination: (req, file, cb) => {
-      const uploadDir = path.join(__dirname, `../uploads/${folderPath}`);
-      // Create directory if it doesn't exist
-      if (!fs.existsSync(uploadDir)) {
-        fs.mkdirSync(uploadDir, { recursive: true });
-      }
-      cb(null, uploadDir);
-    },
-    filename: (req, file, cb) => {
-      cb(null, `${Date.now()}-${file.originalname}`);
-    },
-  });
-};
+// Define the storage engine
+const storage: StorageEngine = multer.diskStorage({
+  destination: (req, file, cb) => {
+    // Set folder based on the field name
+    if (file.fieldname === "avatar") {
+      cb(null, path.join(__dirname, `../uploads/avatars`));
+    } else if (file.fieldname === "cover") {
+      cb(null, path.join(__dirname, `../uploads/covers`));
+    } else {
+      cb(new Error("Invalid field name"), "");
+    }
+  },
+  filename: (req, file, cb) => {
+    // Set the file name with current timestamp to avoid overwriting
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
+});
 
-// File filters
-const imageFilter = (req: any, file: any, cb: any) => {
-  if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-    return cb(new Error("Only image files are allowed!"), false);
+// Define file filter to accept only image files
+const fileFilter = (
+  req: Express.Request,
+  file: Express.Multer.File,
+  cb: multer.FileFilterCallback
+) => {
+  const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+  if (allowedTypes.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(new Error("Only .jpeg, .jpg, and .png formats are allowed!"));
   }
-  cb(null, true);
 };
 
-// Create multer instances for different upload types
-export const avatarUpload = multer({
-  storage: createStorage("avatars"),
-  fileFilter: imageFilter,
+// Configure multer with storage, file filter, and size limit
+const upload = multer({
+  storage: storage,
+  fileFilter: fileFilter,
   limits: {
-    fileSize: 1024 * 1024 * 2, // 2MB limit for avatars
+    fileSize: 3 * 1024 * 1024, // Limit file size to 2MB
   },
 });
 
-export const coverUpload = multer({
-  storage: createStorage("covers"),
-  fileFilter: imageFilter,
-  limits: {
-    fileSize: 1024 * 1024 * 5, // 5MB limit for covers
-  },
-});
+// Set up routes to handle avatar and cover uploads
+export const uploadAvatar = upload.single("avatar");
+export const uploadCover = upload.single("cover");

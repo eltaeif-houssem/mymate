@@ -64,7 +64,10 @@ export const updateCover = async (
       request.file.filename
     );
 
-    response.status(201).send({ message: "cover picture was updated" });
+    response.status(201).send({
+      message: "cover picture was updated",
+      data: request.file.filename,
+    });
   } catch (error) {
     next(error);
   }

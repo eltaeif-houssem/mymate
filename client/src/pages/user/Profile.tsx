@@ -11,8 +11,22 @@ const Profile: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [profile, setProfile] = useState<any>();
 
-  const handleCoverImageChange = (event: any) => {
-    const file = event.target.files?.[0];
+  const handleCoverImageChange = async (event: any) => {
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append("cover", file);
+    const access_token = localStorage.getItem("access_token");
+    const response = await profileService.updateCover(
+      formData,
+      `${access_token}`
+    );
+    if (!response.error) {
+      setProfile((state: any) => ({
+        ...state,
+        backgroundPicture: response.data,
+      }));
+    }
+
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
