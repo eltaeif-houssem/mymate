@@ -10,9 +10,9 @@ class ProfileService {
     }
   }
 
-  async updateAvatar(body: any, id: string) {
+  async updateAvatar(body: any, access_token: string) {
     try {
-      const { data } = await profileApi.updateAvatar(body, id);
+      const { data } = await profileApi.updateAvatar(body, access_token);
       return data;
     } catch (error: any) {
       return { error: error.response.data.message };

@@ -26,27 +26,23 @@ const Profile: React.FC = () => {
         backgroundPicture: response.data,
       }));
     }
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        // setCoverImage(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
   };
 
-  const handleProfileImageChange = (event: any) => {
-    const file = event.target.files?.[0];
-
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      console.log(reader.result);
-      // setProfileImage(reader.result as string);
-    };
-    reader.readAsDataURL(file);
+  const handleProfileImageChange = async (event: any) => {
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append("avatar", file);
+    const access_token = localStorage.getItem("access_token");
+    const response = await profileService.updateAvatar(
+      formData,
+      `${access_token}`
+    );
+    if (!response.error) {
+      setProfile((state: any) => ({
+        ...state,
+        profilePicture: response.data,
+      }));
+    }
   };
 
   useEffect(() => {

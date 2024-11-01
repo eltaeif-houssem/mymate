@@ -42,7 +42,10 @@ export const updateAvatar = async (
       request.file.filename
     );
 
-    response.status(201).send({ message: "avatar picture was updated" });
+    response.status(201).send({
+      message: "avatar picture was updated",
+      data: request.file.filename,
+    });
   } catch (error) {
     next(error);
   }
@@ -54,6 +57,7 @@ export const updateCover = async (
   next: NextFunction
 ) => {
   const user = request.user;
+  console.log(request.file);
   try {
     if (!request.file) throw new CustomError("No file was found", 400);
 
