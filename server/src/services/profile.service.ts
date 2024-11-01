@@ -1,4 +1,5 @@
 import Profile from "@models/profile.model";
+import * as fileUtil from "@utils/file.util";
 
 class ProfileService {
   async findProfile(filter: any) {
@@ -16,6 +17,8 @@ class ProfileService {
 
     if (!profileExists) {
       await Profile.create(filter);
+    } else {
+      fileUtil.deleteUploadFile(`${profileExists.profilePicture}`, "avatar");
     }
 
     await Profile.findOneAndUpdate(filter, { profilePicture: filename });
@@ -26,6 +29,8 @@ class ProfileService {
 
     if (!profileExists) {
       await Profile.create(filter);
+    } else {
+      fileUtil.deleteUploadFile(`${profileExists.backgroundPicture}`, "cover");
     }
 
     await Profile.findOneAndUpdate(filter, { backgroundPicture: filename });
