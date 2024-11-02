@@ -23,3 +23,15 @@ export const updateCover = async (body: any, access_token: string) =>
       Authorization: `Bearer ${access_token}`,
     },
   });
+
+// update profile
+export const updateProfile = async (
+  id: string,
+  body: any,
+  access_token: string
+) =>
+  axios.put(`/profile/${id}`, body, {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
+  });

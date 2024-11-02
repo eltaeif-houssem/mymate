@@ -27,6 +27,15 @@ class ProfileService {
       return { error: error.response.data.message };
     }
   }
+
+  async updateProfile(id: string, body: any, access_token: string) {
+    try {
+      const { data } = await profileApi.updateProfile(id, body, access_token);
+      return data;
+    } catch (error: any) {
+      return { error: error.response.data.message };
+    }
+  }
 }
 
 export const profileService = new ProfileService();

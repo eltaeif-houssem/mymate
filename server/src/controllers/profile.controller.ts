@@ -114,8 +114,12 @@ export const updateProfile = async (
   next: NextFunction
 ) => {
   const user = request.user;
+  const id = request.params.id;
   const body = request.body;
   try {
+    if (id !== user?.id)
+      throw new CustomError("You try to update another user profile", 400);
+
     await profileService.updateProfile(
       {
         user: user?.id,
