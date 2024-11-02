@@ -10,6 +10,7 @@ const Profile: React.FC = () => {
   const { authStore } = useAppContext();
   const [loading, setLoading] = useState<boolean>(true);
   const [profile, setProfile] = useState<any>();
+  const [bioForm, setBioForm] = useState<boolean>(false);
 
   const handleCoverImageChange = async (event: any) => {
     const file = event.target.files[0];
@@ -60,9 +61,21 @@ const Profile: React.FC = () => {
     fetchData();
   }, []);
 
+  const updateBio = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const bioValue = (
+      event.currentTarget.elements.namedItem("bio") as HTMLInputElement
+    ).value;
+
+    const formData = new FormData();
+    formData.append("bio", bioValue);
+    setBioForm(false);
+  };
+
   if (loading) {
     return <LoadingSpinner />;
   }
+
   return (
     <div className="w-full min-h-screen bg-blue-50">
       <Header value="" onChange={() => {}} onClick={() => {}} />
@@ -131,16 +144,34 @@ const Profile: React.FC = () => {
         {/* hey bros */}
         <div className="w-full">
           <div className="w-96 pt-20 pl-6">
-            <div>
-              <p>
-                I'm John Grayson, and I'm a recent college graduate with a
-                Bachelor's Degree in Web Design. I'm seeking a full-time
-                opportunity where I can employ my programming skills.
-              </p>
-              <button className="w-full mt-4 bg-blue-400 py-1.5 rounded-md text-white duration-200 hover:opacity-90">
-                Add Bio
-              </button>
-            </div>
+            {!bioForm && (
+              <div>
+                {profile.bio && <p>{profile.bio}</p>}
+                <button
+                  className="w-full mt-4 bg-blue-400 py-1.5 rounded-md text-white duration-200 hover:opacity-90"
+                  onClick={() => setBioForm(true)}
+                >
+                  {!profile.bio ? "Add Bio" : "Edit Bio"}
+                </button>
+              </div>
+            )}
+
+            {bioForm && (
+              <form onSubmit={updateBio}>
+                <textarea
+                  placeholder="Enter a bio"
+                  defaultValue={profile.bio}
+                  name="bio"
+                  className="w-full h-32 p-2 border border-gray-300 rounded-md resize-none"
+                />
+                <button
+                  type="submit"
+                  className="w-full mt-4 bg-red-400 py-1.5 rounded-md text-white duration-200 hover:opacity-90"
+                >
+                  Update Bio
+                </button>
+              </form>
+            )}
           </div>
         </div>
       </main>
