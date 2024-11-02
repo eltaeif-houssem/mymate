@@ -72,11 +72,10 @@ const Profile: React.FC = () => {
       event.currentTarget.elements.namedItem("bio") as HTMLInputElement
     ).value;
     const access_token = localStorage.getItem("access_token");
-    const formData = new FormData();
-    formData.append("bio", bioValue);
+    const body = { bio: bioValue };
     const response = await profileService.updateProfile(
       `${profile.user}`,
-      formData,
+      body,
       `${access_token}`
     );
     if (!response.error) {
@@ -86,6 +85,64 @@ const Profile: React.FC = () => {
       toast.error("cannot update the bio");
     }
     setBioForm(false);
+  };
+
+  const inputFormHandler = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const body = {
+      socialLinks: {
+        facebook:
+          (
+            event.currentTarget.elements.namedItem(
+              "facebook"
+            ) as HTMLInputElement
+          )?.value ||
+          profile.socialLinks?.facebook ||
+          "",
+        instagram:
+          (
+            event.currentTarget.elements.namedItem(
+              "instagram"
+            ) as HTMLInputElement
+          )?.value ||
+          profile.socialLinks?.instagram ||
+          "",
+        twitter:
+          (
+            event.currentTarget.elements.namedItem(
+              "twitter"
+            ) as HTMLInputElement
+          )?.value ||
+          profile.socialLinks?.twitter ||
+          "",
+        linkedin:
+          (
+            event.currentTarget.elements.namedItem(
+              "linkedin"
+            ) as HTMLInputElement
+          )?.value ||
+          profile.socialLinks?.linkedin ||
+          "",
+      },
+    };
+
+    const access_token = localStorage.getItem("access_token");
+    const response = await profileService.updateProfile(
+      `${profile.user}`,
+      body,
+      `${access_token}`
+    );
+    if (!response.error) {
+      setProfile((state: any) => ({ ...state, socialLinks: body.socialLinks }));
+      toast.success("profile was updated");
+    } else {
+      toast.error("cannot update the bio");
+    }
+
+    setFacebookInput(false);
+    setInstagramInput(false);
+    setTwitterInput(false);
+    setLinkedinInput(false);
   };
 
   if (loading) {
@@ -193,11 +250,16 @@ const Profile: React.FC = () => {
           <div className="w-96 pl-6 mt-4">
             <h3 className="text-xl font-semibold mb-2">Profile Infos</h3>
 
-            <form className="flex items-center mb-3">
+            <form
+              className="flex items-center mb-3"
+              onSubmit={inputFormHandler}
+            >
               <input
                 type="text"
                 disabled={!facebookInput}
+                defaultValue={profile.socialLinks?.facebook || ""}
                 placeholder="Facebook link"
+                name="facebook"
                 className="w-full py-2 px-2 rounded-md"
               />
               {!facebookInput && (
@@ -220,11 +282,16 @@ const Profile: React.FC = () => {
               )}
             </form>
 
-            <form className="flex items-center mb-3">
+            <form
+              className="flex items-center mb-3"
+              onSubmit={inputFormHandler}
+            >
               <input
                 type="text"
                 disabled={!twitterInput}
+                defaultValue={profile.socialLinks?.twitter || ""}
                 placeholder="Twitter link"
+                name="twitter"
                 className="w-full py-2 px-2 rounded-md"
               />
               {!twitterInput && (
@@ -247,11 +314,16 @@ const Profile: React.FC = () => {
               )}
             </form>
 
-            <form className="flex items-center mb-3">
+            <form
+              className="flex items-center mb-3"
+              onSubmit={inputFormHandler}
+            >
               <input
                 type="text"
                 disabled={!instagramInput}
+                defaultValue={profile.socialLinks?.instagram || ""}
                 placeholder="Instagram link"
+                name="instagram"
                 className="w-full py-2 px-2 rounded-md"
               />
               {!instagramInput && (
@@ -274,11 +346,16 @@ const Profile: React.FC = () => {
               )}
             </form>
 
-            <form className="flex items-center mb-3">
+            <form
+              className="flex items-center mb-3"
+              onSubmit={inputFormHandler}
+            >
               <input
                 type="text"
                 disabled={!linkedinInput}
+                defaultValue={profile.socialLinks?.linkedin || ""}
                 placeholder="Linkedin link"
+                name="linkedin"
                 className="w-full py-2 px-2 rounded-md"
               />
               {!linkedinInput && (
