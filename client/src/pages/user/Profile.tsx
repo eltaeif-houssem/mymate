@@ -64,7 +64,7 @@ const Profile: React.FC = () => {
     return <LoadingSpinner />;
   }
   return (
-    <div className="min-h-screen bg-blue-50">
+    <div className="w-full min-h-screen bg-blue-50">
       <Header value="" onChange={() => {}} onClick={() => {}} />
 
       <main className="pt-20">
@@ -124,6 +124,22 @@ const Profile: React.FC = () => {
                   onChange={handleProfileImageChange}
                 />
               </label>
+            </div>
+          </div>
+        </div>
+
+        {/* hey bros */}
+        <div className="w-full">
+          <div className="w-96 pt-20 pl-6">
+            <div>
+              <p>
+                I'm John Grayson, and I'm a recent college graduate with a
+                Bachelor's Degree in Web Design. I'm seeking a full-time
+                opportunity where I can employ my programming skills.
+              </p>
+              <button className="w-full mt-4 bg-blue-400 py-1.5 rounded-md text-white duration-200 hover:opacity-90">
+                Add Bio
+              </button>
             </div>
           </div>
         </div>
