@@ -246,6 +246,33 @@ const Profile: React.FC = () => {
                 </button>
               )}
             </form>
+
+            <form className="flex items-center mb-3">
+              <input
+                type="text"
+                disabled={!instagramInput}
+                placeholder="Instagram link"
+                className="w-full py-2 px-2 rounded-md"
+              />
+              {!instagramInput && (
+                <button
+                  type="button"
+                  onClick={() => setInstagramInput((state) => !state)}
+                  className="px-3 py-2 ml-2 bg-blue-400 text-white rounded-md"
+                >
+                  <i className="fa-solid fa-pen" />
+                </button>
+              )}
+
+              {instagramInput && (
+                <button
+                  type="submit"
+                  className="px-3 py-2 ml-2 bg-red-400 text-white rounded-md"
+                >
+                  <i className="fa-solid fa-floppy-disk" />
+                </button>
+              )}
+            </form>
           </div>
         </div>
       </main>
