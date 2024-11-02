@@ -5,6 +5,7 @@ import { verifyUser } from "@middlewares/auth.middleware";
 
 export const router = Router();
 
+router.put("/", verifyUser, controller.updateProfile);
 router.get("/:id", verifyUser, controller.getProfile);
 router.get("/avatar/:id", controller.getAvatar);
 router.get("/cover/:id", controller.getCover);

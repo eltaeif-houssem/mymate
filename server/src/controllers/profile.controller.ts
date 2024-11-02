@@ -107,3 +107,26 @@ export const getCover = async (
     next(error);
   }
 };
+
+export const updateProfile = async (
+  request: IUserReq,
+  response: Response,
+  next: NextFunction
+) => {
+  const user = request.user;
+  const body = request.body;
+  try {
+    await profileService.updateProfile(
+      {
+        user: user?.id,
+      },
+      body
+    );
+
+    response.status(201).send({
+      message: "profile was updated",
+    });
+  } catch (error) {
+    next(error);
+  }
+};

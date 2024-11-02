@@ -36,14 +36,14 @@ class ProfileService {
     await Profile.findOneAndUpdate(filter, { backgroundPicture: filename });
   }
 
-  async updateBio(filter: any, bio: string) {
+  async updateProfile(filter: any, payload: any) {
     let profileExists = await Profile.findOne(filter);
 
     if (!profileExists) {
       await Profile.create(filter);
     }
 
-    await Profile.findByIdAndUpdate(filter, { bio });
+    await Profile.findByIdAndUpdate(filter, payload);
   }
 }
 
