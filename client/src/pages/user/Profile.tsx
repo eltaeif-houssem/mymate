@@ -13,6 +13,9 @@ const Profile: React.FC = () => {
   const [profile, setProfile] = useState<any>();
   const [bioForm, setBioForm] = useState<boolean>(false);
   const [facebookInput, setFacebookInput] = useState<boolean>(false);
+  const [twitterInput, setTwitterInput] = useState<boolean>(false);
+  const [instagramInput, setInstagramInput] = useState<boolean>(false);
+  const [linkedinInput, setLinkedinInput] = useState<boolean>(false);
 
   const handleCoverImageChange = async (event: any) => {
     const file = event.target.files[0];
@@ -190,7 +193,7 @@ const Profile: React.FC = () => {
           <div className="w-96 pl-6 mt-4">
             <h3 className="text-xl font-semibold mb-2">Profile Infos</h3>
 
-            <form className="flex items-center">
+            <form className="flex items-center mb-3">
               <input
                 type="text"
                 disabled={!facebookInput}
@@ -208,6 +211,33 @@ const Profile: React.FC = () => {
               )}
 
               {facebookInput && (
+                <button
+                  type="submit"
+                  className="px-3 py-2 ml-2 bg-red-400 text-white rounded-md"
+                >
+                  <i className="fa-solid fa-floppy-disk" />
+                </button>
+              )}
+            </form>
+
+            <form className="flex items-center mb-3">
+              <input
+                type="text"
+                disabled={!twitterInput}
+                placeholder="Twitter link"
+                className="w-full py-2 px-2 rounded-md"
+              />
+              {!twitterInput && (
+                <button
+                  type="button"
+                  onClick={() => setTwitterInput((state) => !state)}
+                  className="px-3 py-2 ml-2 bg-blue-400 text-white rounded-md"
+                >
+                  <i className="fa-solid fa-pen" />
+                </button>
+              )}
+
+              {twitterInput && (
                 <button
                   type="submit"
                   className="px-3 py-2 ml-2 bg-red-400 text-white rounded-md"
