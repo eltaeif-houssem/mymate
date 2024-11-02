@@ -12,6 +12,7 @@ const Profile: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [profile, setProfile] = useState<any>();
   const [bioForm, setBioForm] = useState<boolean>(false);
+  const [facebookInput, setFacebookInput] = useState<boolean>(false);
 
   const handleCoverImageChange = async (event: any) => {
     const file = event.target.files[0];
@@ -89,7 +90,7 @@ const Profile: React.FC = () => {
   }
 
   return (
-    <div className="w-full min-h-screen bg-blue-50">
+    <div className="w-full min-h-screen pb-24 bg-blue-50">
       <Header value="" onChange={() => {}} onClick={() => {}} />
 
       <main className="pt-20">
@@ -156,6 +157,7 @@ const Profile: React.FC = () => {
         {/* hey bros */}
         <div className="w-full">
           <div className="w-96 pt-20 pl-6">
+            <h3 className="text-xl font-semibold mb-2">Bio</h3>
             {!bioForm && (
               <div>
                 {profile.bio && <p>{profile.bio}</p>}
@@ -184,6 +186,36 @@ const Profile: React.FC = () => {
                 </button>
               </form>
             )}
+          </div>
+          <div className="w-96 pl-6 mt-4">
+            <h3 className="text-xl font-semibold mb-2">Profile Infos</h3>
+
+            <form className="flex items-center">
+              <input
+                type="text"
+                disabled={!facebookInput}
+                placeholder="Facebook link"
+                className="w-full py-2 px-2 rounded-md"
+              />
+              {!facebookInput && (
+                <button
+                  type="button"
+                  onClick={() => setFacebookInput((state) => !state)}
+                  className="px-3 py-2 ml-2 bg-blue-400 text-white rounded-md"
+                >
+                  <i className="fa-solid fa-pen" />
+                </button>
+              )}
+
+              {facebookInput && (
+                <button
+                  type="submit"
+                  className="px-3 py-2 ml-2 bg-red-400 text-white rounded-md"
+                >
+                  <i className="fa-solid fa-floppy-disk" />
+                </button>
+              )}
+            </form>
           </div>
         </div>
       </main>
