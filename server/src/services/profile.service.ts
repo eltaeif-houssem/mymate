@@ -43,7 +43,7 @@ class ProfileService {
       await Profile.create(filter);
     }
 
-    await Profile.findByIdAndUpdate(filter, payload);
+    await Profile.findOneAndUpdate(filter, payload);
   }
 }
 

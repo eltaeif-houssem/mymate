@@ -5,6 +5,7 @@ import coverPic from "@assets/soft-pink-free-solidcolor-background.jpg";
 import profileService from "@services/profile.service";
 import { useAppContext } from "@context/context";
 import LoadingSpinner from "@components/spinners/LoadingSpinner";
+import { toast } from "react-toastify";
 
 const Profile: React.FC = () => {
   const { authStore } = useAppContext();
@@ -66,9 +67,20 @@ const Profile: React.FC = () => {
     const bioValue = (
       event.currentTarget.elements.namedItem("bio") as HTMLInputElement
     ).value;
-
+    const access_token = localStorage.getItem("access_token");
     const formData = new FormData();
     formData.append("bio", bioValue);
+    const response = await profileService.updateProfile(
+      `${profile.user}`,
+      formData,
+      `${access_token}`
+    );
+    if (!response.error) {
+      setProfile((state: any) => ({ ...state, bio: bioValue }));
+      toast.success("bio was updated");
+    } else {
+      toast.error("cannot update the bio");
+    }
     setBioForm(false);
   };
 
