@@ -150,7 +150,7 @@ const Profile: React.FC = () => {
   }
 
   return (
-    <div className="w-full min-h-screen pb-24 bg-blue-50">
+    <div className="w-full pb-24 bg-blue-50">
       <Header value="" onChange={() => {}} onClick={() => {}} />
 
       <main className="pt-20">
@@ -214,169 +214,197 @@ const Profile: React.FC = () => {
           </div>
         </div>
 
-        {/* hey bros */}
-        <div className="w-full">
-          <div className="w-96 pt-20 pl-6">
-            <h3 className="text-xl font-semibold mb-2">Bio</h3>
-            {!bioForm && (
-              <div>
-                {profile.bio && <p>{profile.bio}</p>}
-                <button
-                  className="w-full mt-4 bg-blue-400 py-1.5 rounded-md text-white duration-200 hover:opacity-90"
-                  onClick={() => setBioForm(true)}
-                >
-                  {!profile.bio ? "Add Bio" : "Edit Bio"}
-                </button>
-              </div>
-            )}
+        {/* Left Side */}
+        <div className="w-full flex">
+          <div className="w-96">
+            <div className="w-96 pt-20 pl-6">
+              <h3 className="text-xl font-semibold mb-2">Bio</h3>
+              {!bioForm && (
+                <div>
+                  {profile.bio && <p>{profile.bio}</p>}
+                  <button
+                    className="w-full mt-4 bg-blue-400 py-1.5 rounded-md text-white duration-200 hover:opacity-90"
+                    onClick={() => setBioForm(true)}
+                  >
+                    {!profile.bio ? "Add Bio" : "Edit Bio"}
+                  </button>
+                </div>
+              )}
 
-            {bioForm && (
-              <form onSubmit={updateBio}>
-                <textarea
-                  placeholder="Enter a bio"
-                  defaultValue={profile.bio}
-                  name="bio"
-                  className="w-full h-32 p-2 border border-gray-300 rounded-md resize-none"
+              {bioForm && (
+                <form onSubmit={updateBio}>
+                  <textarea
+                    placeholder="Enter a bio"
+                    defaultValue={profile.bio}
+                    name="bio"
+                    className="w-full h-32 p-2 border border-gray-300 rounded-md resize-none"
+                  />
+                  <button
+                    type="submit"
+                    className="w-full mt-4 bg-red-400 py-1.5 rounded-md text-white duration-200 hover:opacity-90"
+                  >
+                    Update Bio
+                  </button>
+                </form>
+              )}
+            </div>
+            <div className="w-96 pl-6 mt-4">
+              <h3 className="text-xl font-semibold mb-2">Profile Infos</h3>
+
+              <form
+                className="flex items-center mb-3"
+                onSubmit={inputFormHandler}
+              >
+                <input
+                  type="text"
+                  disabled={!facebookInput}
+                  defaultValue={profile.socialLinks?.facebook || ""}
+                  placeholder="Facebook link"
+                  name="facebook"
+                  className="w-full py-2 px-2 rounded-md"
                 />
-                <button
-                  type="submit"
-                  className="w-full mt-4 bg-red-400 py-1.5 rounded-md text-white duration-200 hover:opacity-90"
-                >
-                  Update Bio
-                </button>
+                {!facebookInput && (
+                  <button
+                    type="button"
+                    onClick={() => setFacebookInput((state) => !state)}
+                    className="px-3 py-2 ml-2 bg-blue-400 text-white rounded-md"
+                  >
+                    <i className="fa-solid fa-pen" />
+                  </button>
+                )}
+
+                {facebookInput && (
+                  <button
+                    type="submit"
+                    className="px-3 py-2 ml-2 bg-red-400 text-white rounded-md"
+                  >
+                    <i className="fa-solid fa-floppy-disk" />
+                  </button>
+                )}
               </form>
-            )}
+
+              <form
+                className="flex items-center mb-3"
+                onSubmit={inputFormHandler}
+              >
+                <input
+                  type="text"
+                  disabled={!twitterInput}
+                  defaultValue={profile.socialLinks?.twitter || ""}
+                  placeholder="Twitter link"
+                  name="twitter"
+                  className="w-full py-2 px-2 rounded-md"
+                />
+                {!twitterInput && (
+                  <button
+                    type="button"
+                    onClick={() => setTwitterInput((state) => !state)}
+                    className="px-3 py-2 ml-2 bg-blue-400 text-white rounded-md"
+                  >
+                    <i className="fa-solid fa-pen" />
+                  </button>
+                )}
+
+                {twitterInput && (
+                  <button
+                    type="submit"
+                    className="px-3 py-2 ml-2 bg-red-400 text-white rounded-md"
+                  >
+                    <i className="fa-solid fa-floppy-disk" />
+                  </button>
+                )}
+              </form>
+
+              <form
+                className="flex items-center mb-3"
+                onSubmit={inputFormHandler}
+              >
+                <input
+                  type="text"
+                  disabled={!instagramInput}
+                  defaultValue={profile.socialLinks?.instagram || ""}
+                  placeholder="Instagram link"
+                  name="instagram"
+                  className="w-full py-2 px-2 rounded-md"
+                />
+                {!instagramInput && (
+                  <button
+                    type="button"
+                    onClick={() => setInstagramInput((state) => !state)}
+                    className="px-3 py-2 ml-2 bg-blue-400 text-white rounded-md"
+                  >
+                    <i className="fa-solid fa-pen" />
+                  </button>
+                )}
+
+                {instagramInput && (
+                  <button
+                    type="submit"
+                    className="px-3 py-2 ml-2 bg-red-400 text-white rounded-md"
+                  >
+                    <i className="fa-solid fa-floppy-disk" />
+                  </button>
+                )}
+              </form>
+
+              <form
+                className="flex items-center mb-3"
+                onSubmit={inputFormHandler}
+              >
+                <input
+                  type="text"
+                  disabled={!linkedinInput}
+                  defaultValue={profile.socialLinks?.linkedin || ""}
+                  placeholder="Linkedin link"
+                  name="linkedin"
+                  className="w-full py-2 px-2 rounded-md"
+                />
+                {!linkedinInput && (
+                  <button
+                    type="button"
+                    onClick={() => setLinkedinInput((state) => !state)}
+                    className="px-3 py-2 ml-2 bg-blue-400 text-white rounded-md"
+                  >
+                    <i className="fa-solid fa-pen" />
+                  </button>
+                )}
+
+                {linkedinInput && (
+                  <button
+                    type="submit"
+                    className="px-3 py-2 ml-2 bg-red-400 text-white rounded-md"
+                  >
+                    <i className="fa-solid fa-floppy-disk" />
+                  </button>
+                )}
+              </form>
+            </div>
           </div>
-          <div className="w-96 pl-6 mt-4">
-            <h3 className="text-xl font-semibold mb-2">Profile Infos</h3>
+          <div className="w-full h-52 py-8 px-12">
+            <div className="w-full h-52 bg-white rounded-md py-4 px-6">
+              <div className="w-full flex items-center justify-center">
+                <div className="flex items-center mr-12 duration-200 hover:opacity-80 cursor-pointer">
+                  <i className="fa-solid fa-pen bg-yellow-200 rounded-full py-3 px-3" />
+                  <p className="ml-2 font-semibold">Write a post</p>
+                </div>
 
-            <form
-              className="flex items-center mb-3"
-              onSubmit={inputFormHandler}
-            >
-              <input
-                type="text"
-                disabled={!facebookInput}
-                defaultValue={profile.socialLinks?.facebook || ""}
-                placeholder="Facebook link"
-                name="facebook"
-                className="w-full py-2 px-2 rounded-md"
-              />
-              {!facebookInput && (
-                <button
-                  type="button"
-                  onClick={() => setFacebookInput((state) => !state)}
-                  className="px-3 py-2 ml-2 bg-blue-400 text-white rounded-md"
-                >
-                  <i className="fa-solid fa-pen" />
-                </button>
-              )}
+                <div className="flex items-center duration-200 hover:opacity-80 cursor-pointer">
+                  <i className="fa-solid fa-image bg-yellow-200 rounded-full py-3 px-3" />
+                  <p className="ml-2 font-semibold">Upload a photo</p>
+                </div>
 
-              {facebookInput && (
-                <button
-                  type="submit"
-                  className="px-3 py-2 ml-2 bg-red-400 text-white rounded-md"
-                >
-                  <i className="fa-solid fa-floppy-disk" />
-                </button>
-              )}
-            </form>
+                <div className="flex items-center ml-12 duration-200 hover:opacity-80 cursor-pointer">
+                  <i className="fa-solid fa-video bg-yellow-200 rounded-full py-3 px-3" />
+                  <p className="ml-2 font-semibold">Upload a video</p>
+                </div>
+              </div>
 
-            <form
-              className="flex items-center mb-3"
-              onSubmit={inputFormHandler}
-            >
-              <input
-                type="text"
-                disabled={!twitterInput}
-                defaultValue={profile.socialLinks?.twitter || ""}
-                placeholder="Twitter link"
-                name="twitter"
-                className="w-full py-2 px-2 rounded-md"
-              />
-              {!twitterInput && (
-                <button
-                  type="button"
-                  onClick={() => setTwitterInput((state) => !state)}
-                  className="px-3 py-2 ml-2 bg-blue-400 text-white rounded-md"
-                >
-                  <i className="fa-solid fa-pen" />
-                </button>
-              )}
+              <hr className="my-4" />
 
-              {twitterInput && (
-                <button
-                  type="submit"
-                  className="px-3 py-2 ml-2 bg-red-400 text-white rounded-md"
-                >
-                  <i className="fa-solid fa-floppy-disk" />
-                </button>
-              )}
-            </form>
-
-            <form
-              className="flex items-center mb-3"
-              onSubmit={inputFormHandler}
-            >
-              <input
-                type="text"
-                disabled={!instagramInput}
-                defaultValue={profile.socialLinks?.instagram || ""}
-                placeholder="Instagram link"
-                name="instagram"
-                className="w-full py-2 px-2 rounded-md"
-              />
-              {!instagramInput && (
-                <button
-                  type="button"
-                  onClick={() => setInstagramInput((state) => !state)}
-                  className="px-3 py-2 ml-2 bg-blue-400 text-white rounded-md"
-                >
-                  <i className="fa-solid fa-pen" />
-                </button>
-              )}
-
-              {instagramInput && (
-                <button
-                  type="submit"
-                  className="px-3 py-2 ml-2 bg-red-400 text-white rounded-md"
-                >
-                  <i className="fa-solid fa-floppy-disk" />
-                </button>
-              )}
-            </form>
-
-            <form
-              className="flex items-center mb-3"
-              onSubmit={inputFormHandler}
-            >
-              <input
-                type="text"
-                disabled={!linkedinInput}
-                defaultValue={profile.socialLinks?.linkedin || ""}
-                placeholder="Linkedin link"
-                name="linkedin"
-                className="w-full py-2 px-2 rounded-md"
-              />
-              {!linkedinInput && (
-                <button
-                  type="button"
-                  onClick={() => setLinkedinInput((state) => !state)}
-                  className="px-3 py-2 ml-2 bg-blue-400 text-white rounded-md"
-                >
-                  <i className="fa-solid fa-pen" />
-                </button>
-              )}
-
-              {linkedinInput && (
-                <button
-                  type="submit"
-                  className="px-3 py-2 ml-2 bg-red-400 text-white rounded-md"
-                >
-                  <i className="fa-solid fa-floppy-disk" />
-                </button>
-              )}
-            </form>
+              <div className="w-full h-24 bg-blue-50 rounded p-2">
+                <i className="fa-solid fa-pen text-gray-400" />
+              </div>
+            </div>
           </div>
         </div>
       </main>
