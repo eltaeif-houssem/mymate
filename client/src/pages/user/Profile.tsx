@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Header from "@components/headers/Header";
 import profilePic from "@assets/profile-1.png";
 import coverPic from "@assets/soft-pink-free-solidcolor-background.jpg";
@@ -6,6 +6,12 @@ import profileService from "@services/profile.service";
 import { useAppContext } from "@context/context";
 import LoadingSpinner from "@components/spinners/LoadingSpinner";
 import { toast } from "react-toastify";
+
+interface IPostData {
+  text?: string;
+  image?: any;
+  video?: any;
+}
 
 const Profile: React.FC = () => {
   const { authStore } = useAppContext();
@@ -16,6 +22,9 @@ const Profile: React.FC = () => {
   const [twitterInput, setTwitterInput] = useState<boolean>(false);
   const [instagramInput, setInstagramInput] = useState<boolean>(false);
   const [linkedinInput, setLinkedinInput] = useState<boolean>(false);
+  const [postState, setPostState] = useState<IPostData>();
+
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleCoverImageChange = async (event: any) => {
     const file = event.target.files[0];
@@ -145,6 +154,26 @@ const Profile: React.FC = () => {
     setLinkedinInput(false);
   };
 
+  const clickWritePostButtonHandler = () => {
+    textAreaRef.current?.focus();
+  };
+
+  const handleAddPostImage = () => {
+    document.getElementById("post-image")?.click();
+  };
+
+  const handleFileChange = (event: any) => {
+    const file = event.target.files[0];
+    if (file) {
+      setPostState((state) => ({ ...state, image: file, video: "" }));
+      const reader = new FileReader();
+      reader.onload = () => {
+        const postImage: any = document.getElementById("post-image-src");
+        postImage.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  };
   if (loading) {
     return <LoadingSpinner />;
   }
@@ -380,17 +409,33 @@ const Profile: React.FC = () => {
               </form>
             </div>
           </div>
-          <div className="w-full h-52 py-8 px-12">
-            <div className="w-full h-52 bg-white rounded-md py-4 px-6">
+          <div className="w-full pt-8 px-12 overflow-y-scroll">
+            <div className="w-full h-60 bg-white rounded-md py-4 px-6">
               <div className="w-full flex items-center justify-center">
-                <div className="flex items-center mr-12 duration-200 hover:opacity-80 cursor-pointer">
+                <div
+                  className="flex items-center mr-12 duration-200 hover:opacity-80 cursor-pointer"
+                  onClick={clickWritePostButtonHandler}
+                >
                   <i className="fa-solid fa-pen bg-yellow-200 rounded-full py-3 px-3" />
                   <p className="ml-2 font-semibold">Write a post</p>
                 </div>
 
-                <div className="flex items-center duration-200 hover:opacity-80 cursor-pointer">
-                  <i className="fa-solid fa-image bg-yellow-200 rounded-full py-3 px-3" />
-                  <p className="ml-2 font-semibold">Upload a photo</p>
+                <div>
+                  <div
+                    className="flex items-center duration-200 hover:opacity-80 cursor-pointer"
+                    onClick={handleAddPostImage}
+                  >
+                    <i className="fa-solid fa-image bg-yellow-200 rounded-full py-3 px-3" />
+                    <p className="ml-2 font-semibold">Upload a photo</p>
+                  </div>
+                  {/* Hidden input for file selection */}
+                  <input
+                    id="post-image"
+                    type="file"
+                    accept="image/*" // Restrict selection to images
+                    style={{ display: "none" }}
+                    onChange={handleFileChange}
+                  />
                 </div>
 
                 <div className="flex items-center ml-12 duration-200 hover:opacity-80 cursor-pointer">
@@ -401,8 +446,29 @@ const Profile: React.FC = () => {
 
               <hr className="my-4" />
 
-              <div className="w-full h-24 bg-blue-50 rounded p-2">
-                <i className="fa-solid fa-pen text-gray-400" />
+              <div className="w-full h-32 bg-blue-50 rounded p-2 relative">
+                <i className="fa-solid fa-pen text-gray-400 absolute top-4" />
+                <textarea
+                  ref={textAreaRef}
+                  placeholder="Enter text here..."
+                  className="h-20 w-3/4 pl-6 py-1 border rounded-md resize-none bg-transparent border-none outline-none"
+                  onChange={(event) =>
+                    setPostState((state) => ({
+                      ...state,
+                      text: event.target.value,
+                    }))
+                  }
+                />
+                {postState?.image && (
+                  <img
+                    id="post-image-src"
+                    className="absolute w-12 h-12 right-3 top-2 rounded-md"
+                    src={postState.image as string}
+                  />
+                )}
+                <button className="absolute duration-200 hover:opacity-80 bg-blue-400 text-white font-semibold bottom-2 right-3 px-4 py-1 rounded-md">
+                  Publish
+                </button>
               </div>
             </div>
           </div>
