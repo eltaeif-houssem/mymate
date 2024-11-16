@@ -162,7 +162,11 @@ const Profile: React.FC = () => {
     document.getElementById("post-image")?.click();
   };
 
-  const handleFileChange = (event: any) => {
+  const handleAddPostVideo = () => {
+    document.getElementById("post-video")?.click();
+  };
+
+  const handlePostImageHandler = (event: any) => {
     const file = event.target.files[0];
     if (file) {
       setPostState((state) => ({ ...state, image: file, video: "" }));
@@ -174,6 +178,20 @@ const Profile: React.FC = () => {
       reader.readAsDataURL(file);
     }
   };
+
+  const handlePostVideoHandler = (event: any) => {
+    const file = event.target.files[0];
+    if (file) {
+      setPostState((state) => ({ ...state, video: file, image: "" }));
+      const reader = new FileReader();
+      reader.onload = () => {
+        const postImage: any = document.getElementById("post-video-src");
+        postImage.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   if (loading) {
     return <LoadingSpinner />;
   }
@@ -434,13 +452,26 @@ const Profile: React.FC = () => {
                     type="file"
                     accept="image/*" // Restrict selection to images
                     style={{ display: "none" }}
-                    onChange={handleFileChange}
+                    onChange={handlePostImageHandler}
                   />
                 </div>
 
-                <div className="flex items-center ml-12 duration-200 hover:opacity-80 cursor-pointer">
-                  <i className="fa-solid fa-video bg-yellow-200 rounded-full py-3 px-3" />
-                  <p className="ml-2 font-semibold">Upload a video</p>
+                <div>
+                  <div
+                    className="flex items-center ml-12 duration-200 hover:opacity-80 cursor-pointer"
+                    onClick={handleAddPostVideo}
+                  >
+                    <i className="fa-solid fa-video bg-yellow-200 rounded-full py-3 px-3" />
+                    <p className="ml-2 font-semibold">Upload a video</p>
+                  </div>
+                  {/* Hidden input for file selection */}
+                  <input
+                    id="post-video"
+                    type="file"
+                    accept="video/*" // Restrict selection to images
+                    style={{ display: "none" }}
+                    onChange={handlePostVideoHandler}
+                  />
                 </div>
               </div>
 
@@ -463,7 +494,13 @@ const Profile: React.FC = () => {
                   <img
                     id="post-image-src"
                     className="absolute w-12 h-12 right-3 top-2 rounded-md"
-                    src={postState.image as string}
+                  />
+                )}
+
+                {postState?.video && (
+                  <video
+                    id="post-video-src"
+                    className="absolute w-16 h-12 right-3 top-2 rounded-md"
                   />
                 )}
                 <button className="absolute duration-200 hover:opacity-80 bg-blue-400 text-white font-semibold bottom-2 right-3 px-4 py-1 rounded-md">
