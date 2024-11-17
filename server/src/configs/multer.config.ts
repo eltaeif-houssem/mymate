@@ -9,6 +9,10 @@ const storage: StorageEngine = multer.diskStorage({
       cb(null, path.join(__dirname, `../uploads/avatars`));
     } else if (file.fieldname === "cover") {
       cb(null, path.join(__dirname, `../uploads/covers`));
+    } else if (file.fieldname === "post-image") {
+      cb(null, path.join(__dirname, `../uploads/post-images`));
+    } else if (file.fieldname === "post-video") {
+      cb(null, path.join(__dirname, `../uploads/post-videos`));
     } else {
       cb(new Error("Invalid field name"), "");
     }
@@ -20,7 +24,7 @@ const storage: StorageEngine = multer.diskStorage({
 });
 
 // Define file filter to accept only image files
-const fileFilter = (
+const imageFilter = (
   req: Express.Request,
   file: Express.Multer.File,
   cb: multer.FileFilterCallback
@@ -33,15 +37,42 @@ const fileFilter = (
   }
 };
 
+const videoFilter = (
+  req: Express.Request,
+  file: Express.Multer.File,
+  cb: multer.FileFilterCallback
+) => {
+  const allowedFileTypes = /mp4|mov|avi|mkv|flv|wmv/;
+  const isValid = allowedFileTypes.test(
+    path.extname(file.originalname).toLowerCase()
+  );
+
+  if (isValid) {
+    cb(null, true);
+  } else {
+    cb(new Error("Invalid file type. Only video files are allowed."));
+  }
+};
+
 // Configure multer with storage, file filter, and size limit
-const upload = multer({
+const imageUpload = multer({
   storage: storage,
-  fileFilter: fileFilter,
+  fileFilter: imageFilter,
   limits: {
-    fileSize: 3 * 1024 * 1024, // Limit file size to 2MB
+    fileSize: 3 * 1024 * 1024, // Limit file size to 3MB
+  },
+});
+
+const videoUpload = multer({
+  storage: storage,
+  fileFilter: videoFilter,
+  limits: {
+    fileSize: 100 * 1024 * 1024, // Limit file size to 100MB
   },
 });
 
 // Set up routes to handle avatar and cover uploads
-export const uploadAvatar = upload.single("avatar");
-export const uploadCover = upload.single("cover");
+export const uploadAvatar = imageUpload.single("avatar");
+export const uploadCover = imageUpload.single("cover");
+export const uploadPostImage = imageUpload.single("post-image");
+export const uploadPostVideo = videoUpload.single("post-video");

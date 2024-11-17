@@ -192,6 +192,23 @@ const Profile: React.FC = () => {
     }
   };
 
+  const publishPostHandler = () => {
+    if (!postState?.text && !postState?.image && !postState?.video) {
+      toast.error("An element should be included");
+      return;
+    }
+
+    const postData = new FormData();
+
+    if (postState.text) postData.append("text", postState.text);
+
+    if (postState.image) postData.append("image", postState.image);
+
+    if (postState.video) postData.append("video", postState.video);
+
+    console.log(postData);
+  };
+
   if (loading) {
     return <LoadingSpinner />;
   }
@@ -503,7 +520,10 @@ const Profile: React.FC = () => {
                     className="absolute w-16 h-12 right-3 top-2 rounded-md"
                   />
                 )}
-                <button className="absolute duration-200 hover:opacity-80 bg-blue-400 text-white font-semibold bottom-2 right-3 px-4 py-1 rounded-md">
+                <button
+                  className="absolute duration-200 hover:opacity-80 bg-blue-400 text-white font-semibold bottom-2 right-3 px-4 py-1 rounded-md"
+                  onClick={publishPostHandler}
+                >
                   Publish
                 </button>
               </div>
