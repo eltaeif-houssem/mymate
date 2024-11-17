@@ -19,11 +19,6 @@ export const postSchema = new mongoose.Schema(
       trim: true,
     },
 
-    postVideo: {
-      type: String,
-      trim: true,
-    },
-
     likes: [
       {
         type: mongoose.Schema.Types.ObjectId,
