@@ -6,6 +6,7 @@ import profileService from "@services/profile.service";
 import { useAppContext } from "@context/context";
 import LoadingSpinner from "@components/spinners/LoadingSpinner";
 import { toast } from "react-toastify";
+import postService from "@/services/post.service";
 
 interface IPostData {
   text?: string;
@@ -174,19 +175,26 @@ const Profile: React.FC = () => {
     }
   };
 
-  const publishPostHandler = () => {
+  const publishPostHandler = async () => {
     if (!postState?.text && !postState?.image) {
       toast.error("An element should be included");
       return;
     }
 
-    const postData = new FormData();
+    const postData: any = {};
 
-    if (postState.text) postData.append("text", postState.text);
+    if (postState.text) {
+      postData["content"] = postState.text;
+    }
 
-    if (postState.image) postData.append("imagepost", postState.image);
+    if (postState.image) {
+      postData["postimage"] = postState.image;
+    }
 
-    console.log(postData);
+    const access_token = localStorage.getItem("access_token");
+    const response = await postService.createPost(postData, `${access_token}`);
+
+    console.log(response);
   };
 
   if (loading) {
