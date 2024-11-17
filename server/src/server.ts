@@ -18,8 +18,8 @@ const io = new Server(server, {
 const PORT = process.env.PORT || 8080;
 
 // init middlewares
-app.use(express.json({ limit: "3mb" }));
-app.use(express.urlencoded({ extended: true, limit: "3mb" }));
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 app.use(
   cors({
     origin: "http://localhost:3000",
@@ -28,6 +28,7 @@ app.use(
 app.use("/api/v1/auth", appRoutes.authRoute);
 app.use("/api/v1/otp", appRoutes.otpRoute);
 app.use("/api/v1/profile", appRoutes.profileRoute);
+app.use("/api/v1/post", appRoutes.postRoute);
 app.use(errorHandler);
 
 // init socket io server

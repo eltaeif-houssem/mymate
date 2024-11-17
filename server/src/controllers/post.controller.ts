@@ -9,7 +9,8 @@ export const createPost = async (
 ) => {
   const user = request.user;
   const body = request.body;
-  console.log(request.files);
+  console.log("hello");
+  //   console.log(request.files);
   try {
     response.status(201).send({
       message: "cover picture was updated",
