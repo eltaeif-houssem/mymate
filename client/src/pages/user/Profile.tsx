@@ -10,7 +10,6 @@ import { toast } from "react-toastify";
 interface IPostData {
   text?: string;
   image?: any;
-  video?: any;
 }
 
 const Profile: React.FC = () => {
@@ -162,10 +161,6 @@ const Profile: React.FC = () => {
     document.getElementById("post-image")?.click();
   };
 
-  const handleAddPostVideo = () => {
-    document.getElementById("post-video")?.click();
-  };
-
   const handlePostImageHandler = (event: any) => {
     const file = event.target.files[0];
     if (file) {
@@ -179,21 +174,8 @@ const Profile: React.FC = () => {
     }
   };
 
-  const handlePostVideoHandler = (event: any) => {
-    const file = event.target.files[0];
-    if (file) {
-      setPostState((state) => ({ ...state, video: file, image: "" }));
-      const reader = new FileReader();
-      reader.onload = () => {
-        const postImage: any = document.getElementById("post-video-src");
-        postImage.src = reader.result;
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
   const publishPostHandler = () => {
-    if (!postState?.text && !postState?.image && !postState?.video) {
+    if (!postState?.text && !postState?.image) {
       toast.error("An element should be included");
       return;
     }
@@ -202,9 +184,7 @@ const Profile: React.FC = () => {
 
     if (postState.text) postData.append("text", postState.text);
 
-    if (postState.image) postData.append("image", postState.image);
-
-    if (postState.video) postData.append("video", postState.video);
+    if (postState.image) postData.append("imagepost", postState.image);
 
     console.log(postData);
   };
@@ -472,24 +452,6 @@ const Profile: React.FC = () => {
                     onChange={handlePostImageHandler}
                   />
                 </div>
-
-                <div>
-                  <div
-                    className="flex items-center ml-12 duration-200 hover:opacity-80 cursor-pointer"
-                    onClick={handleAddPostVideo}
-                  >
-                    <i className="fa-solid fa-video bg-yellow-200 rounded-full py-3 px-3" />
-                    <p className="ml-2 font-semibold">Upload a video</p>
-                  </div>
-                  {/* Hidden input for file selection */}
-                  <input
-                    id="post-video"
-                    type="file"
-                    accept="video/*" // Restrict selection to images
-                    style={{ display: "none" }}
-                    onChange={handlePostVideoHandler}
-                  />
-                </div>
               </div>
 
               <hr className="my-4" />
@@ -511,13 +473,6 @@ const Profile: React.FC = () => {
                   <img
                     id="post-image-src"
                     className="absolute w-12 h-12 right-3 top-2 rounded-md"
-                  />
-                )}
-
-                {postState?.video && (
-                  <video
-                    id="post-video-src"
-                    className="absolute w-16 h-12 right-3 top-2 rounded-md"
                   />
                 )}
                 <button
