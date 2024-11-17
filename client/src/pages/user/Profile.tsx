@@ -194,7 +194,9 @@ const Profile: React.FC = () => {
     const access_token = localStorage.getItem("access_token");
     const response = await postService.createPost(postData, `${access_token}`);
 
-    console.log(response);
+    const postImage: any = document.getElementById("post-image-src");
+    postImage.src = "";
+    setPostState({ text: "", image: "" });
   };
 
   if (loading) {
@@ -484,13 +486,17 @@ const Profile: React.FC = () => {
                   />
                 )}
                 <button
-                  className="absolute duration-200 hover:opacity-80 bg-blue-400 text-white font-semibold bottom-2 right-3 px-4 py-1 rounded-md"
+                  className={`absolute duration-200 hover:opacity-80 bg-blue-400 text-white font-semibold bottom-2 right-3 px-4 py-1 rounded-md ${
+                    !postState?.text && !postState?.image && "hidden"
+                  }`}
                   onClick={publishPostHandler}
                 >
                   Publish
                 </button>
               </div>
             </div>
+
+            <div className="w-full min-h-12 mt-12"></div>
           </div>
         </div>
       </main>
